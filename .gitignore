@@ -1,0 +1,19 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+
+# Large video assets - keep locally, exclude from Git
+public/assets/aistudio/*.mp4
+
+# Reference-only files - not website content
+references/
+*.zip
+
+# Temporary development files
+generate_svg.py
+public/logo-draft.svg

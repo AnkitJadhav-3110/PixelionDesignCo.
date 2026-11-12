@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" width="100%" height="100%">
+  <defs>
+    <linearGradient id="rw-red" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E63946"/>
+      <stop offset="50%" stop-color="#C1121F"/>
+      <stop offset="100%" stop-color="#780000"/>
+    </linearGradient>
+    <linearGradient id="rw-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F8F7F4"/>
+    </linearGradient>
+    <filter id="rw-shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="800" height="560" rx="16" fill="url(#rw-bg)"/>
+  
+  <!-- Outer Border Frame -->
+  <rect x="24" y="24" width="752" height="512" rx="12" fill="none" stroke="#111111" stroke-width="2.5"/>
+  <rect x="34" y="34" width="732" height="492" rx="8" fill="none" stroke="#E63946" stroke-width="1.2"/>
+
+  <!-- Geometric Corner Flourishes -->
+  <rect x="36" y="36" width="16" height="16" fill="#111111"/>
+  <rect x="748" y="36" width="16" height="16" fill="#111111"/>
+  <rect x="36" y="508" width="16" height="16" fill="#111111"/>
+  <rect x="748" y="508" width="16" height="16" fill="#111111"/>
+
+  <!-- Header / Issuer -->
+  <g transform="translate(400, 85)" text-anchor="middle">
+    <!-- Emblem -->
+    <circle cx="0" cy="0" r="22" fill="#E63946"/>
+    <text y="7" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="900" fill="#FFFFFF">RNW</text>
+    <text y="38" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="900" fill="#111111" letter-spacing="2">RED &amp; WHITE SKILL EDUCATION</text>
+    <text y="54" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#E63946" letter-spacing="1.5">NATIONAL SKILL DEVELOPMENT • BHARUCH CENTRE</text>
+  </g>
+
+  <!-- Title of Award -->
+  <g transform="translate(400, 180)" text-anchor="middle">
+    <text y="0" font-family="Georgia, serif" font-size="14" font-style="italic" fill="#555555" letter-spacing="2">Professional Diploma Awarded To</text>
+    <text y="42" font-family="system-ui, -apple-system, sans-serif" font-size="30" font-weight="900" fill="#111111" letter-spacing="1">DHRUVRAJSINH RANA</text>
+    <line x1="-190" y1="56" x2="190" y2="56" stroke="#E63946" stroke-width="1.5"/>
+    <text y="84" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#444444">upon exemplary completion of the professional curriculum in</text>
+    <text y="118" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="800" fill="#111111" letter-spacing="0.5">GRAPHIC DESIGN &amp; UI SPECIALIZATION</text>
+    <text y="142" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#666666">Photoshop • Illustrator • InDesign • CorelDRAW • UI Design Principles • Print Prepress</text>
+  </g>
+
+  <!-- Credential Details Footer -->
+  <g transform="translate(80, 430)">
+    <rect x="0" y="0" width="220" height="60" rx="8" fill="#FFFFFF" stroke="#E0DFD8" stroke-width="1"/>
+    <text x="16" y="24" font-family="monospace" font-size="9" font-weight="700" fill="#888888" letter-spacing="1">TENURE &amp; DIPLOMA</text>
+    <text x="16" y="44" font-family="monospace" font-size="13" font-weight="700" fill="#111111">2020 — 2022</text>
+  </g>
+
+  <!-- Official Seal -->
+  <g transform="translate(400, 455)">
+    <circle cx="0" cy="0" r="38" fill="url(#rw-red)" filter="url(#rw-shadow)"/>
+    <circle cx="0" cy="0" r="32" fill="#FFFFFF"/>
+    <circle cx="0" cy="0" r="28" fill="none" stroke="#E63946" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <text y="-6" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="800" fill="#E63946" letter-spacing="1">ACCREDITED</text>
+    <text y="8" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="900" fill="#111111">RNW</text>
+    <text y="18" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="7" font-weight="700" fill="#E63946">DIPLOMA</text>
+  </g>
+
+  <!-- Signatures -->
+  <g transform="translate(640, 450)" text-anchor="middle">
+    <path d="M -50 -10 Q -25 -25 5 -10 T 55 -15" stroke="#111111" stroke-width="1.5" fill="none" opacity="0.8"/>
+    <line x1="-70" y1="5" x2="70" y2="5" stroke="#999999" stroke-width="1"/>
+    <text y="20" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#555555" letter-spacing="1">HEAD OF ACADEMICS</text>
+    <text y="32" font-family="system-ui, -apple-system, sans-serif" font-size="8" fill="#888888">RED &amp; WHITE EDUCATION</text>
+  </g>
+</svg>

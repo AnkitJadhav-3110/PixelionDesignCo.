@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pixeliondesignco.vercel.app/sitemap.xml

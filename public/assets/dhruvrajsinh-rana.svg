@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" width="600" height="750">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FDFEFE"/>
+      <stop offset="100%" stop-color="#F0F3F8"/>
+    </linearGradient>
+    <linearGradient id="suitGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3A4454"/>
+      <stop offset="100%" stop-color="#232A35"/>
+    </linearGradient>
+    <linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E5B287"/>
+      <stop offset="100%" stop-color="#D1996C"/>
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#2C3D6C" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Clean Studio Canvas -->
+  <rect width="600" height="750" fill="url(#bgGrad)"/>
+
+  <!-- Subtle Geometric Frame Backdrop Accents -->
+  <circle cx="300" cy="280" r="220" fill="#2C3D6C" fill-opacity="0.04"/>
+  <circle cx="480" cy="160" r="80" fill="#E31E24" fill-opacity="0.05"/>
+
+  <!-- Body / Shoulders & Charcoal Suit Jacket -->
+  <g filter="url(#softShadow)">
+    <!-- Torso -->
+    <path d="M 100 750 L 120 540 Q 140 460 210 430 L 260 415 L 340 415 L 390 430 Q 460 460 480 540 L 500 750 Z" fill="url(#suitGrad)"/>
+    
+    <!-- White Collared Shirt -->
+    <path d="M 250 415 L 300 550 L 350 415 L 330 405 L 300 450 L 270 405 Z" fill="#FDFEFE" stroke="#E2E6EE" stroke-width="1.5"/>
+    <!-- Shirt Collar Flaps -->
+    <path d="M 240 405 L 280 445 L 295 405 Z" fill="#FFFFFF" stroke="#D0D5E0" stroke-width="1"/>
+    <path d="M 360 405 L 320 445 L 305 405 Z" fill="#FFFFFF" stroke="#D0D5E0" stroke-width="1"/>
+
+    <!-- Suit Lapels (Left & Right) -->
+    <path d="M 205 435 L 270 570 L 250 590 L 180 470 Z" fill="#2B3440"/>
+    <path d="M 395 435 L 330 570 L 350 590 L 420 470 Z" fill="#2B3440"/>
+  </g>
+
+  <!-- Neck -->
+  <path d="M 260 360 L 260 430 Q 300 450 340 430 L 340 360 Z" fill="#D99F73"/>
+
+  <!-- Head & Face Structure -->
+  <ellipse cx="300" cy="285" rx="115" ry="140" fill="url(#skinGrad)" filter="url(#softShadow)"/>
+
+  <!-- Ears -->
+  <ellipse cx="185" cy="285" rx="20" ry="36" fill="#D99F73"/>
+  <ellipse cx="415" cy="285" rx="20" ry="36" fill="#D99F73"/>
+
+  <!-- Hair (Black, Contemporary Cut) -->
+  <path d="M 180 250 C 175 160 230 110 300 110 C 370 110 425 160 420 250 C 405 180 370 150 300 150 C 230 150 195 180 180 250 Z" fill="#1A1D20"/>
+  <path d="M 200 160 Q 300 130 400 160 Q 380 140 300 135 Q 220 140 200 160 Z" fill="#2A3038"/>
+
+  <!-- Eyebrows -->
+  <path d="M 225 240 Q 255 230 280 242" stroke="#1F2328" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <path d="M 320 242 Q 345 230 375 240" stroke="#1F2328" stroke-width="6" stroke-linecap="round" fill="none"/>
+
+  <!-- Eyes -->
+  <ellipse cx="252" cy="265" rx="14" ry="8" fill="#FFFFFF"/>
+  <circle cx="252" cy="265" r="6" fill="#221E1B"/>
+  <circle cx="254" cy="263" r="2" fill="#FFFFFF"/>
+
+  <ellipse cx="348" cy="265" rx="14" ry="8" fill="#FFFFFF"/>
+  <circle cx="348" cy="265" r="6" fill="#221E1B"/>
+  <circle cx="350" cy="263" r="2" fill="#FFFFFF"/>
+
+  <!-- Eyeglasses (Black Rectangular Frame as in Photo) -->
+  <g stroke="#15181C" stroke-width="5" fill="none">
+    <!-- Left Lens Rim -->
+    <rect x="220" y="248" width="66" height="38" rx="8" fill="#F0F8FF" fill-opacity="0.15" stroke="#15181C" stroke-width="5"/>
+    <!-- Right Lens Rim -->
+    <rect x="314" y="248" width="66" height="38" rx="8" fill="#F0F8FF" fill-opacity="0.15" stroke="#15181C" stroke-width="5"/>
+    <!-- Bridge -->
+    <path d="M 286 262 Q 300 258 314 262" stroke-width="5" stroke-linecap="round"/>
+    <!-- Left Temple Hook -->
+    <path d="M 220 260 L 184 256" stroke-width="4"/>
+    <!-- Right Temple Hook -->
+    <path d="M 380 260 L 416 256" stroke-width="4"/>
+  </g>
+
+  <!-- Nose -->
+  <path d="M 300 265 L 296 308 Q 300 315 308 308" stroke="#BF835B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Mustache & Goatee -->
+  <path d="M 280 330 Q 300 326 320 330" stroke="#2A2A2A" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <!-- Subtle Goatee Shadow -->
+  <ellipse cx="300" cy="372" rx="12" ry="6" fill="#2A2A2A" fill-opacity="0.6"/>
+
+  <!-- Smile / Lips -->
+  <path d="M 280 342 Q 300 356 320 342" stroke="#AF6852" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Studio Frame Accent Badge -->
+  <rect x="30" y="30" width="540" height="690" rx="24" fill="none" stroke="#E2E6EE" stroke-width="2"/>
+  <circle cx="540" cy="60" r="6" fill="#E31E24"/>
+</svg>

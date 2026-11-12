@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" width="100%" height="100%">
+  <defs>
+    <linearGradient id="ced-maroon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B1E27"/>
+      <stop offset="50%" stop-color="#B22222"/>
+      <stop offset="100%" stop-color="#661016"/>
+    </linearGradient>
+    <linearGradient id="ced-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FDFAF6"/>
+      <stop offset="100%" stop-color="#F5EFE6"/>
+    </linearGradient>
+    <filter id="ced-shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="800" height="560" rx="16" fill="url(#ced-bg)"/>
+  
+  <!-- Outer Border Frame -->
+  <rect x="24" y="24" width="752" height="512" rx="12" fill="none" stroke="#661016" stroke-width="2.5"/>
+  <rect x="34" y="34" width="732" height="492" rx="8" fill="none" stroke="#C59B27" stroke-width="1.2"/>
+
+  <!-- Ornaments -->
+  <g stroke="#8B1E27" stroke-width="1.5" fill="none">
+    <circle cx="48" cy="48" r="8"/>
+    <circle cx="752" cy="48" r="8"/>
+    <circle cx="48" cy="512" r="8"/>
+    <circle cx="752" cy="512" r="8"/>
+  </g>
+
+  <!-- Header / Issuer -->
+  <g transform="translate(400, 85)" text-anchor="middle">
+    <!-- CED Symbol -->
+    <rect x="-24" y="-22" width="48" height="44" rx="6" fill="#8B1E27"/>
+    <path d="M -12 -6 L 0 -14 L 12 -6 L 12 10 L -12 10 Z" fill="#F5EFE6"/>
+    <text y="38" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="900" fill="#8B1E27" letter-spacing="2">THE CENTRE FOR ENTREPRENEURSHIP DEVELOPMENT</text>
+    <text y="54" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#444444" letter-spacing="1">CED GUJARAT • GOVERNMENT OF GUJARAT INITIATIVE</text>
+  </g>
+
+  <!-- Title of Award -->
+  <g transform="translate(400, 180)" text-anchor="middle">
+    <text y="0" font-family="Georgia, serif" font-size="14" font-style="italic" fill="#555555" letter-spacing="2">Certificate of Successful Completion</text>
+    <text y="42" font-family="system-ui, -apple-system, sans-serif" font-size="30" font-weight="900" fill="#111111" letter-spacing="1">DHRUVRAJSINH RANA</text>
+    <line x1="-190" y1="56" x2="190" y2="56" stroke="#8B1E27" stroke-width="1.5"/>
+    <text y="84" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#444444">has participated and fulfilled all prerequisites for the</text>
+    <text y="118" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="800" fill="#8B1E27" letter-spacing="0.5">ENTREPRENEURSHIP DEVELOPMENT PROGRAM</text>
+    <text y="142" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#666666">Specialization in Business Operations, Enterprise Leadership &amp; Creative Agency Management</text>
+  </g>
+
+  <!-- Credential Details Footer -->
+  <g transform="translate(80, 430)">
+    <rect x="0" y="0" width="220" height="60" rx="8" fill="#FFFFFF" stroke="#E0DFD8" stroke-width="1"/>
+    <text x="16" y="24" font-family="monospace" font-size="9" font-weight="700" fill="#888888" letter-spacing="1">PROGRAM PERIOD</text>
+    <text x="16" y="44" font-family="monospace" font-size="13" font-weight="700" fill="#111111">SEPTEMBER 2022</text>
+  </g>
+
+  <!-- Official Seal -->
+  <g transform="translate(400, 455)">
+    <circle cx="0" cy="0" r="38" fill="url(#ced-maroon)" filter="url(#ced-shadow)"/>
+    <circle cx="0" cy="0" r="32" fill="#FFFFFF"/>
+    <circle cx="0" cy="0" r="28" fill="none" stroke="#8B1E27" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <text y="-6" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="800" fill="#8B1E27" letter-spacing="1">OFFICIAL</text>
+    <text y="8" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="900" fill="#111111">CED</text>
+    <text y="18" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="7" font-weight="700" fill="#8B1E27">GUJARAT</text>
+  </g>
+
+  <!-- Signatures -->
+  <g transform="translate(640, 450)" text-anchor="middle">
+    <path d="M -50 -8 Q -20 -28 10 -8 T 50 -12" stroke="#111111" stroke-width="1.5" fill="none" opacity="0.8"/>
+    <line x1="-70" y1="5" x2="70" y2="5" stroke="#999999" stroke-width="1"/>
+    <text y="20" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#555555" letter-spacing="1">PROJECT DIRECTOR</text>
+    <text y="32" font-family="system-ui, -apple-system, sans-serif" font-size="8" fill="#888888">CED GUJARAT</text>
+  </g>
+</svg>

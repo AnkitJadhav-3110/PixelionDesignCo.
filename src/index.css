@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Pixelion Design Co. Centralised Corporate Brand Design System
+   Brand Red: #E31E24
+   Brand Navy Blue: #2C3D6C
+   Brand White: #FDFEFE
+   Typography: Poppins (Headings & CTA) & Manrope (Body & UI)
+   ========================================================================== */
+
+:root {
+  /* Typography Variables */
+  --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-body: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-display: var(--font-heading);
+  --font-sans: var(--font-body);
+  --font-cta: var(--font-heading);
+
+  /* Foundation Brand Colors */
+  --brand-red: #E31E24;
+  --brand-navy: #2C3D6C;
+  --brand-white: #FDFEFE;
+
+  --page-background: #FDFEFE;
+  --surface-background: #FDFEFE;
+  --primary-text: #2C3D6C;
+  --secondary-text: #46516A;
+  --primary-action: #E31E24;
+  --primary-action-hover: #C81920;
+  --border-subtle: #E2E6EE;
+  --dark-surface: #2C3D6C;
+  --dark-surface-text: #FDFEFE;
+}
+
+@theme {
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+  --font-display: var(--font-heading);
+  --font-sans: var(--font-body);
+  --font-cta: var(--font-cta);
+
+  --color-brand-red: var(--brand-red);
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-white: var(--brand-white);
+  --color-page: var(--page-background);
+  --color-surface: var(--surface-background);
+  --color-primary: var(--primary-text);
+  --color-secondary: var(--secondary-text);
+  --color-action: var(--primary-action);
+  --color-action-hover: var(--primary-action-hover);
+  --color-border-subtle: var(--border-subtle);
+  --color-dark-surface: var(--dark-surface);
+  --color-dark-surface-text: var(--dark-surface-text);
+}
+
+/* Base Typography & Background Application */
+html {
+  font-family: var(--font-body);
+  background-color: var(--page-background);
+  color: var(--primary-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-synthesis: none;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--page-background);
+  color: var(--primary-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Headings default to Poppins display family; color cascades from container or utility class */
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+/* Form controls default to Manrope */
+input, textarea, select, option, label {
+  font-family: var(--font-body);
+}
+
+/* Shared typography utilities */
+@layer utilities {
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+  .font-display {
+    font-family: var(--font-heading);
+  }
+  .font-body {
+    font-family: var(--font-body);
+  }
+  .font-sans-body {
+    font-family: var(--font-body);
+  }
+  .font-cta {
+    font-family: var(--font-cta);
+  }
+  .font-serif-expressive {
+    font-family: Georgia, 'Times New Roman', serif;
+  }
+}
+
+/* Custom scrollbar in brand navy & subtle border */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FDFEFE;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E2E6EE;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2C3D6C;
+}
+
+/* Smooth hide scrollbars for sliders if needed */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom cursor default pointer behavior override on interactive items */
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: default;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Accessibility: Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
