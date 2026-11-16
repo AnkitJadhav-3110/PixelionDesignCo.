@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
-import { useLocation, useParams, Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import {
   ArrowRight,
+  ArrowUpRight,
   Compass,
   Monitor,
   Smartphone,
@@ -25,20 +25,31 @@ import {
   DollarSign,
   Headphones,
 } from 'lucide-react';
-import { servicesData, ServiceDetail } from '../data/pixelionData';
-import { CursorState } from '../types';
+import { servicesData, pixelionProjects } from '../data/pixelionData';
+import { CursorState, Project } from '../types';
 import SEOHead from '../components/SEOHead';
 import LazyImage from '../components/LazyImage';
+import PageHero from '../components/PageHero';
 import PreFooterBanner from '../components/PreFooterBanner';
+import CaseStudyModal from '../components/CaseStudyModal';
 
 interface ServicesPageProps {
   setCursorState: (state: CursorState) => void;
   onOpenContact: () => void;
 }
 
+const SERVICE_SHOWCASE_IDS: Record<string, string[]> = {
+  branding: ['pixelion-brand-identity', 'ab-perfumes', 'freshsip-branding', 'shree-rang-creation'],
+  'graphic-design': ['modique-poster', 'institutional-certificates', 'science-exhibition-banner', 'starbucks-poster'],
+  'ui-ux': ['easypay', 'gemini-redesign', 'expert-connect', 'accessibility-ux'],
+  'social-media': ['starbucks-poster', 'modique-poster', 'shree-shakti-kurta', 'gujarati-delights-menu'],
+  'print-packaging': ['choice-chaat-masala', 'snack-wagon-menu', 'ashirwad-transport-billbook', 'dhruvis-creative-hub'],
+  invitations: ['invitations-showcase', 'wedding-engagement-cards', 'vastupujan-traditional-cards', 'birthday-milestone-cards'],
+};
+
 export default function ServicesPage({ setCursorState, onOpenContact }: ServicesPageProps) {
   const { serviceId } = useParams<{ serviceId?: string }>();
-  const location = useLocation();
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const activeService = servicesData.find((s) => s.id === serviceId);
 
@@ -120,8 +131,19 @@ export default function ServicesPage({ setCursorState, onOpenContact }: Services
     },
   ];
 
+  const featuredIds =
+    (activeService && SERVICE_SHOWCASE_IDS[activeService.id]) || [
+      'pixelion-brand-identity',
+      'ab-perfumes',
+      'easypay',
+      'invitations-showcase',
+    ];
+  const showcaseProjects = featuredIds
+    .map((id) => pixelionProjects.find((p) => p.id === id))
+    .filter((p): p is Project => Boolean(p));
+
   return (
-    <div className="pt-24 sm:pt-28 pb-12">
+    <div className="pb-12">
       <SEOHead
         title={
           activeService
@@ -132,78 +154,132 @@ export default function ServicesPage({ setCursorState, onOpenContact }: Services
         canonicalPath={serviceId ? `/services/${serviceId}` : '/services'}
       />
 
-      {/* 1. HERO SECTION (Matching 03-services-reference.jpeg) */}
-      <section className="relative px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto py-10 sm:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Column: Breadcrumb, Headline, Paragraph, Red CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-7 space-y-6"
-          >
-            {/* Breadcrumb */}
-            <div className="font-mono text-xs text-[#46516A] flex items-center gap-2">
-              <Link to="/" className="hover:text-[#E31E24]">Home</Link>
-              <span>&gt;</span>
-              <span className="text-[#E31E24] font-bold">
-                {activeService ? activeService.title : 'Services'}
-              </span>
-            </div>
+      {/* 1. CINEMATIC HERO SECTION */}
+      <PageHero
+        gradientTheme="midnight-steel"
+        backgroundImage="/assets/aistudio/image_19b0d8df.png"
+        breadcrumbs={[
+          { label: 'Home', href: '/' },
+          { label: 'Services', href: activeService ? '/services' : undefined },
+          ...(activeService ? [{ label: activeService.title }] : []),
+        ]}
+        eyebrow={activeService ? `SERVICE ${activeService.num} · ${activeService.title.toUpperCase()}` : 'SERVICES & CRAFT'}
+        title={activeService ? activeService.heroHeading : "Our Services, Your Brand's"}
+        highlightWord={activeService ? undefined : 'Success'}
+        description={
+          activeService
+            ? activeService.fullDesc
+            : 'We create powerful design solutions that help your brand stand out, connect with your audience and drive real results.'
+        }
+        primaryCTA={{
+          label: 'Get a Free Quote',
+          href: '/get-a-quote',
+        }}
+        secondaryCTA={{
+          label: activeService ? 'View All Work' : 'Explore Categories',
+          href: activeService ? '/work' : '/categories',
+        }}
+        supportingLogosTitle="CORE STUDIO DISCIPLINES"
+        supportingLogos={[
+          { name: 'BRANDING', subtitle: 'SYSTEMS', symbol: '✦' },
+          { name: 'UI / UX', subtitle: 'DIGITAL', symbol: '●' },
+          { name: 'PACKAGING', subtitle: 'PRINT', symbol: '◆' },
+          { name: 'SOCIAL', subtitle: 'CREATIVES', symbol: '★' },
+          { name: 'INVITES', subtitle: 'EVENTS', symbol: '▲' },
+          { name: 'GRAPHICS', subtitle: 'EDITORIAL', symbol: '⬡' },
+        ]}
+        onHoverCursor={(text) => setCursorState({ variant: 'hover', text })}
+        onLeaveCursor={() => setCursorState({ variant: 'default' })}
+      />
 
-            {/* H1 Headline */}
-            <h1 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-[#2C3D6C] tracking-tight leading-[1.08] break-words">
-              Our Services, <br />
-              <span className="text-[#2C3D6C]">Your Brand's </span>
-              <span className="text-[#E31E24]">Success</span>
-            </h1>
-
-            <p className="font-sans-body text-sm sm:text-base lg:text-lg text-[#46516A] leading-relaxed max-w-xl">
-              {activeService
-                ? activeService.fullDesc
-                : 'We create powerful design solutions that help your brand stand out, connect with your audience and drive real results.'}
-            </p>
-
-            <div className="pt-2">
-              <Link
-                to="/get-a-quote"
-                className="inline-flex items-center gap-2.5 bg-[#E31E24] hover:bg-[#C81920] text-white px-8 py-3.5 sm:py-4 rounded-full font-cta text-xs font-bold tracking-wider transition-all duration-300 shadow-md group"
-                onMouseEnter={() => setCursorState({ variant: 'hover', text: 'QUOTE' })}
-                onMouseLeave={() => setCursorState({ variant: 'default' })}
-              >
-                <span>Get a Free Quote</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-          </motion.div>
-
-          {/* Right Column: Visual Presentation */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="lg:col-span-5 flex justify-center lg:justify-end"
-          >
-            <div className="relative w-full max-w-lg bg-white border border-[#E2E6EE] rounded-3xl p-3 sm:p-4 shadow-xl overflow-hidden group">
-              <div className="relative aspect-[4/3] sm:aspect-[16/11] rounded-2xl overflow-hidden bg-[#2C3D6C]/5 border border-[#E2E6EE]/80">
-                <LazyImage
-                  src="/assets/concepts/concept-uiux-dashboard-01.webp"
-                  alt="Pixelion Design Co. — Multidisciplinary Design Studio Showcase"
-                  priority={true}
-                  placeholderTone="light"
-                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
-                />
-                <div className="absolute bottom-3 inset-x-3 bg-[#2C3D6C]/90 backdrop-blur-md text-white px-4 py-2.5 rounded-xl border border-white/10 flex items-center justify-between">
-                  <span className="font-display font-extrabold text-xs">
-                    PRODUCT & INTERFACE
+      {/* 1B. SERVICE-SPECIFIC DELIVERABLES & REAL VISUAL SHOWCASE */}
+      <section className="py-14 sm:py-20 bg-[#FDFEFE] border-t border-[#E2E6EE]/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+          {activeService && (
+            <div className="bg-white border border-[#E2E6EE] rounded-3xl p-6 sm:p-10 mb-12 shadow-2xs">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-5 border-b border-[#E2E6EE]">
+                <div>
+                  <span className="font-mono text-xs font-bold text-[#E31E24] tracking-widest uppercase block mb-1">
+                    INCLUDED DELIVERABLES
                   </span>
-                  <span className="font-mono text-[9px] text-[#E31E24] bg-white px-2 py-0.5 rounded-md font-bold uppercase">
-                    SHOWCASE
-                  </span>
+                  <h2 className="font-display font-black text-2xl sm:text-3xl text-[#2C3D6C]">
+                    What We Craft in {activeService.title}
+                  </h2>
                 </div>
+                <Link
+                  to="/get-a-quote"
+                  className="inline-flex items-center gap-2 bg-[#E31E24] hover:bg-[#C81920] text-white px-5 py-2.5 rounded-full font-cta text-xs font-bold tracking-wider transition-colors self-start md:self-auto"
+                >
+                  <span>{activeService.ctaText.replace('→', '').trim()}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                {activeService.servicesList.map((item) => (
+                  <div
+                    key={item}
+                    className="flex items-center gap-2 bg-[#F7F9FC] border border-[#E2E6EE] rounded-xl px-3.5 py-2.5 text-xs font-bold text-[#2C3D6C]"
+                  >
+                    <CheckCircle2 className="w-4 h-4 text-[#E31E24] shrink-0" />
+                    <span>{item}</span>
+                  </div>
+                ))}
               </div>
             </div>
-          </motion.div>
+          )}
+
+          {/* Selected Real Work Strip */}
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+            <div>
+              <span className="font-mono text-xs font-bold text-[#E31E24] tracking-widest uppercase block mb-1.5">
+                {activeService ? `PORTFOLIO · ${activeService.title.toUpperCase()}` : 'SELECTED WORK SAMPLES'}
+              </span>
+              <h2 className="font-display font-black text-2xl sm:text-3xl lg:text-4xl text-[#2C3D6C] tracking-tight">
+                {activeService ? `Recent ${activeService.title} Projects` : 'Real Studio Deliverables'}
+              </h2>
+            </div>
+            <Link
+              to="/work"
+              className="inline-flex items-center gap-1.5 font-cta text-xs font-bold text-[#E31E24] hover:underline"
+            >
+              <span>Browse Full Portfolio</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {showcaseProjects.map((proj) => (
+              <div
+                key={proj.id}
+                onClick={() => setSelectedProject(proj)}
+                className="bg-white border border-[#E2E6EE] hover:border-[#E31E24] rounded-2xl overflow-hidden group cursor-pointer transition-all duration-300 hover:shadow-lg flex flex-col justify-between"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#F3F5F9] p-1.5">
+                  <LazyImage
+                    src={proj.heroImage}
+                    alt={proj.title}
+                    placeholderTone="light"
+                    objectFit={proj.aspect === '3:4' ? 'contain' : 'cover'}
+                    className="w-full h-full group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center text-[#E31E24] opacity-0 group-hover:opacity-100 transition-opacity shadow-xs">
+                    <ArrowUpRight className="w-4 h-4" />
+                  </div>
+                </div>
+                <div className="p-4 flex items-center justify-between gap-2 border-t border-[#E2E6EE]/80">
+                  <div className="min-w-0">
+                    <h3 className="font-display font-extrabold text-sm text-[#2C3D6C] group-hover:text-[#E31E24] transition-colors truncate">
+                      {proj.title}
+                    </h3>
+                    <span className="font-mono text-[10px] text-[#46516A] uppercase block truncate mt-0.5">
+                      {proj.category}
+                    </span>
+                  </div>
+                  <span className="text-[#E31E24] font-bold text-xs shrink-0">→</span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -255,11 +331,11 @@ export default function ServicesPage({ setCursorState, onOpenContact }: Services
         </div>
       </section>
 
-      {/* 3. COMBINED: "WHY CHOOSE US?" + "OUR DESIGN PROCESS" (From 03-services-reference.jpeg) */}
+      {/* 3. COMBINED: "WHY CHOOSE US?" + "OUR DESIGN PROCESS" */}
       <section className="py-16 sm:py-20 bg-[#FDFEFE] border-t border-[#E2E6EE]/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
           <div className="bg-white border border-[#E2E6EE] rounded-3xl p-6 sm:p-10 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Left Column: Why Choose Us (approx 35%) */}
+            {/* Left Column: Why Choose Us */}
             <div className="lg:col-span-4 space-y-4 border-b lg:border-b-0 lg:border-r border-[#E2E6EE] pb-8 lg:pb-0 lg:pr-8">
               <span className="font-mono text-xs font-bold text-[#2C3D6C] tracking-widest uppercase block">
                 WHY CHOOSE US?
@@ -313,7 +389,7 @@ export default function ServicesPage({ setCursorState, onOpenContact }: Services
               </div>
             </div>
 
-            {/* Right Column: Our Design Process 5-Step Timeline (approx 65%) */}
+            {/* Right Column: Our Design Process 5-Step Timeline */}
             <div className="lg:col-span-8 space-y-6">
               <span className="font-mono text-xs font-bold text-[#2C3D6C] tracking-widest uppercase block text-center lg:text-left">
                 OUR DESIGN PROCESS
@@ -385,6 +461,16 @@ export default function ServicesPage({ setCursorState, onOpenContact }: Services
         buttonText="Get a Free Quote"
         buttonLink="/get-a-quote"
       />
+
+      {selectedProject && (
+        <CaseStudyModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+          onSelectProject={(next) => setSelectedProject(next)}
+          onOpenContact={onOpenContact}
+          setCursorState={setCursorState}
+        />
+      )}
     </div>
   );
 }

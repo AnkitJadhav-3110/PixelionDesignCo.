@@ -23,7 +23,9 @@ import { studioInfo } from '../data/pixelionData';
 import { CursorState } from '../types';
 import SEOHead from '../components/SEOHead';
 import LazyImage from '../components/LazyImage';
+import PageHero from '../components/PageHero';
 import PreFooterBanner from '../components/PreFooterBanner';
+import WhatsAppIcon from '../components/WhatsAppIcon';
 
 interface AboutPageProps {
   setCursorState: (state: CursorState) => void;
@@ -32,95 +34,71 @@ interface AboutPageProps {
 
 export default function AboutPage({ setCursorState, onOpenContact }: AboutPageProps) {
   return (
-    <div className="pt-24 sm:pt-28 pb-12">
+    <div className="pb-12">
       <SEOHead
         title="About Us | Pixelion Design Co."
         description="Learn about Pixelion Design Co., founded by Rana Dhruvrajsinh in Bharuch, Gujarat. Our story, mission, vision, values, and creative team."
         canonicalPath="/about"
       />
 
-      {/* 1. HERO SECTION (Matching 02-about-reference.jpeg) */}
-      <section className="relative px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto py-10 sm:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Column: Eyebrow, Bold Headline, Paragraph, Navy CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-7 space-y-6"
-          >
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-xs font-bold text-[#E31E24] tracking-widest uppercase">
-                — ABOUT US
-              </span>
-            </div>
-
-            <h1 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-[#2C3D6C] tracking-tight leading-[1.08] break-words">
-              We Design More <br className="hidden sm:inline" />
-              Than Just Graphics, <br />
-              <span className="text-[#E31E24]">We Design Trust.</span>
-            </h1>
-
-            <p className="font-sans-body text-sm sm:text-base lg:text-lg text-[#46516A] leading-relaxed max-w-xl">
-              We are a creative design agency dedicated to helping businesses stand out, connect with their audience and achieve real results through powerful design.
-            </p>
-
-            <div className="pt-2">
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2.5 bg-[#2C3D6C] hover:bg-[#1E2B4D] text-white px-8 py-3.5 sm:py-4 rounded-full font-cta text-xs font-bold tracking-wider transition-all duration-300 shadow-md group"
-                onMouseEnter={() => setCursorState({ variant: 'hover', text: 'WORK' })}
-                onMouseLeave={() => setCursorState({ variant: 'default' })}
-              >
-                <span>Let's Work Together</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-          </motion.div>
-
-          {/* Right Column: Studio Identity Details Visual */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="lg:col-span-5 flex justify-center lg:justify-end"
-          >
-            <div className="relative w-full max-w-lg bg-white border border-[#E2E6EE] rounded-3xl p-3 sm:p-4 shadow-xl overflow-hidden group">
-              <div className="relative aspect-[4/3] sm:aspect-[16/11] rounded-2xl overflow-hidden bg-[#2C3D6C]/5 border border-[#E2E6EE]/80">
-                <LazyImage
-                  src="/assets/concepts/concept-visual-identity-details-01.webp"
-                  alt="Pixelion Design Co. — Brand Craftsmanship & Studio Identity Visual"
-                  priority={true}
-                  placeholderTone="light"
-                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
-                />
-                <div className="absolute bottom-3 inset-x-3 bg-[#2C3D6C]/90 backdrop-blur-md text-white px-4 py-2.5 rounded-xl border border-white/10 flex items-center justify-between">
-                  <span className="font-display font-extrabold text-xs">
-                    STUDIO CRAFTSMANSHIP
-                  </span>
-                  <span className="font-mono text-[9px] text-[#E31E24] bg-white px-2 py-0.5 rounded-md font-bold uppercase">
-                    EST. 2023
-                  </span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* 1. CINEMATIC HERO SECTION */}
+      <PageHero
+        gradientTheme="midnight-steel"
+        eyebrow="ABOUT US"
+        title="We Design More Than Just Graphics,"
+        highlightWord="We Design Trust."
+        description="We are a creative design agency dedicated to helping businesses stand out, connect with their audience and achieve real results through powerful design."
+        primaryCTA={{
+          label: "Let's Work Together",
+          href: '/contact',
+        }}
+        secondaryCTA={{
+          label: 'Meet Our Founder',
+          href: '/founder',
+        }}
+        supportingLogosTitle="PIXELION STUDIO METRICS"
+        supportingLogos={[
+          { name: '3+ YEARS', subtitle: 'EXPERIENCE', symbol: '★' },
+          { name: '250+ PROJECTS', subtitle: 'COMPLETED', symbol: '✦' },
+          { name: '120+ CLIENTS', subtitle: 'GLOBAL REACH', symbol: '●' },
+          { name: '98% RETENTION', subtitle: 'SATISFACTION', symbol: '◆' },
+        ]}
+        onHoverCursor={(text) => setCursorState({ variant: 'hover', text })}
+        onLeaveCursor={() => setCursorState({ variant: 'default' })}
+      />
 
       {/* 2. "OUR STORY / The Story Behind PixelionDesignCo" */}
       <section className="py-16 sm:py-20 bg-[#FDFEFE] border-y border-[#E2E6EE]/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            {/* Left Column: Visual Showcase */}
-            <div className="lg:col-span-5">
-              <div className="relative rounded-2xl overflow-hidden border border-[#E2E6EE] shadow-lg group">
+            {/* Left Column: Authentic Studio Brand & Stationery Visual Showcase */}
+            <div className="lg:col-span-5 space-y-4">
+              <div className="relative rounded-2xl overflow-hidden border border-[#E2E6EE] shadow-lg group bg-white">
                 <LazyImage
-                  src="/assets/concepts/concept-brand-identity-01.webp"
-                  alt="The Story Behind Pixelion Design Co."
+                  src="/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.23_PM_1a129a33.jpeg"
+                  alt="Pixelion Design Co. Official Letterhead & Stationery Suite"
                   placeholderTone="light"
                   className="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-700"
                 />
+              </div>
+              <div className="grid grid-cols-2 gap-3.5">
+                <div className="rounded-xl overflow-hidden border border-[#E2E6EE] bg-[#F4F6FA] p-1.5 shadow-2xs">
+                  <LazyImage
+                    src="/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.45.02_PM_cf2a78a4.jpeg"
+                    alt="Pixelion Design Co. Master Brand Identity Sheet"
+                    placeholderTone="light"
+                    objectFit="contain"
+                    className="w-full aspect-[4/3]"
+                  />
+                </div>
+                <div className="rounded-xl overflow-hidden border border-[#E2E6EE] bg-white shadow-2xs">
+                  <LazyImage
+                    src="/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.26_PM_1503fc47.jpeg"
+                    alt="Pixelion Design Co. Business Card Design"
+                    placeholderTone="light"
+                    className="w-full aspect-[4/3] object-cover"
+                  />
+                </div>
               </div>
             </div>
 
@@ -299,6 +277,16 @@ export default function AboutPage({ setCursorState, onOpenContact }: AboutPagePr
                       title="Instagram"
                     >
                       <Instagram className="w-4 h-4" />
+                    </a>
+                    <a
+                      href={studioInfo.whatsapp}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-8 h-8 rounded-full bg-[#2C3D6C]/5 hover:bg-[#E31E24] hover:text-white flex items-center justify-center transition-colors"
+                      title="WhatsApp"
+                      aria-label="WhatsApp"
+                    >
+                      <WhatsAppIcon className="w-4 h-4" />
                     </a>
                   </div>
 

@@ -13,7 +13,7 @@ export default function SEOHead({
   title,
   description,
   canonicalPath,
-  ogImage = '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.20_PM__1__dba6b25e.jpeg',
+  ogImage = '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.23_PM_1a129a33.jpeg',
   ogType = 'website',
   schemaData,
 }: SEOHeadProps) {

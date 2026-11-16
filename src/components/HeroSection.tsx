@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
-import { Instagram, Linkedin, ExternalLink, MessageCircle, ArrowDown } from 'lucide-react';
+import { Instagram, Linkedin, ExternalLink, ArrowDown } from 'lucide-react';
+import WhatsAppIcon from './WhatsAppIcon';
 import { UserSettings, CursorState } from '../types';
 import { studioInfo } from '../data/pixelionData';
 
@@ -150,7 +151,7 @@ export default function HeroSection({
             { name: 'Instagram', icon: Instagram, url: studioInfo.instagram },
             { name: 'LinkedIn', icon: Linkedin, url: studioInfo.linkedin },
             { name: 'Behance', icon: ExternalLink, url: studioInfo.behance },
-            { name: 'WhatsApp', icon: MessageCircle, url: studioInfo.whatsapp },
+            { name: 'WhatsApp', icon: WhatsAppIcon, url: studioInfo.whatsapp },
           ].map((soc) => (
             <a
               key={soc.name}

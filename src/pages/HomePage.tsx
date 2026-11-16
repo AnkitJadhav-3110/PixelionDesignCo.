@@ -22,7 +22,7 @@ import {
   Star,
   Quote,
 } from 'lucide-react';
-import { pixelionProjects } from '../data/pixelionData';
+import { pixelionProjects, trustedBrands } from '../data/pixelionData';
 import { CursorState, Project } from '../types';
 import CaseStudyModal from '../components/CaseStudyModal';
 import SEOHead from '../components/SEOHead';
@@ -30,6 +30,7 @@ import LazyImage from '../components/LazyImage';
 import TrustedByRibbon from '../components/TrustedByRibbon';
 import PreFooterBanner from '../components/PreFooterBanner';
 import TestimonialCarousel from '../components/TestimonialCarousel';
+import PageHero from '../components/PageHero';
 
 interface HomePageProps {
   setCursorState: (state: CursorState) => void;
@@ -40,46 +41,75 @@ export default function HomePage({ setCursorState, onOpenContact }: HomePageProp
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [activeFilter, setActiveFilter] = useState<string>('All');
 
-  // Featured 4 projects for Homepage Recent Projects row
+  // Featured real Pixelion projects for Homepage Recent Projects row
   const recentProjects = [
     {
-      id: 'architectura',
-      title: 'Brand Identity Design',
+      id: 'pixelion-brand-identity',
+      title: 'Pixelion Brand Identity',
       category: 'Branding',
-      image: '/assets/concepts/concept-brand-identity-01.webp',
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.23_PM_1a129a33.jpeg',
       tag: 'Branding',
     },
     {
-      id: 'luna-leaf',
-      title: 'Premium Packaging',
+      id: 'ab-perfumes',
+      title: 'AB Perfumes Packaging',
       category: 'Packaging',
-      image: '/assets/concepts/concept-packaging-01.webp',
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.37_PM__1__f7955d9d.jpeg',
       tag: 'Packaging',
     },
     {
-      id: 'swiss-type',
-      title: 'Corporate Brochure',
+      id: 'snack-wagon-menu',
+      title: 'Snack Wagon Food Menu',
       category: 'Print Design',
-      image: '/assets/concepts/concept-print-editorial-01.webp',
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.21_PM__1__a93080cc.jpeg',
       tag: 'Print Design',
     },
     {
       id: 'easypay',
-      title: 'Mobile App UI/UX',
+      title: 'Easy Pay Mobile UI/UX',
       category: 'UI/UX Design',
-      image: '/assets/concepts/concept-uiux-mobile-01.webp',
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.35_PM__1__c40d6da4.jpeg',
       tag: 'UI/UX',
+    },
+    {
+      id: 'gemini-redesign',
+      title: 'Google Gemini UI Redesign',
+      category: 'Web Design & UI/UX',
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.36_PM__1__5a3335bb.jpeg',
+      tag: 'Web Design UI/UX',
+    },
+    {
+      id: 'starbucks-poster',
+      title: 'Starbucks Campaign Visual',
+      category: 'Social Media',
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.57.01_PM_7638da18.jpeg',
+      tag: 'Social Media Print Design',
+    },
+    {
+      id: 'freshsip-branding',
+      title: 'FreshSip Brand & Bottle',
+      category: 'Branding & Packaging',
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.36_PM_6836c314.jpeg',
+      tag: 'Branding Packaging',
+    },
+    {
+      id: 'choice-chaat-masala',
+      title: 'Choice+ Masala Carton',
+      category: 'Packaging',
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.21_PM__2__e7360007.jpeg',
+      tag: 'Packaging Print Design',
     },
   ];
 
-  const filteredProjects =
+  const filteredProjects = (
     activeFilter === 'All'
-      ? recentProjects
+      ? recentProjects.slice(0, 4)
       : recentProjects.filter(
           (p) =>
             p.category.toLowerCase().includes(activeFilter.toLowerCase()) ||
             p.tag.toLowerCase().includes(activeFilter.toLowerCase())
-        );
+        )
+  ).slice(0, 4);
 
   const homeServices = [
     {
@@ -141,134 +171,61 @@ export default function HomePage({ setCursorState, onOpenContact }: HomePageProp
   ];
 
   return (
-    <div className="pt-24 sm:pt-28 pb-12">
+    <div className="pb-12">
       <SEOHead
         title="Pixelion Design Co. | Graphic Design, Branding & UI/UX Studio"
         description="Creative design studio in Bharuch, Gujarat offering branding, graphic design, UI/UX, social media, print, packaging, and digital invitations."
       />
 
-      {/* 1. HERO SECTION (Matching 01-homepage-reference.jpeg) */}
-      <section className="relative px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto py-10 sm:py-16 lg:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Column: Eyebrow, Bold Headline, Copy, 2 CTAs, Social Proof */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-7 space-y-6"
-          >
-            {/* Eyebrow */}
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-xs font-bold text-[#E31E24] tracking-widest uppercase">
-                — WE DESIGN
-              </span>
+      {/* 1. CINEMATIC HERO SECTION */}
+      <PageHero
+        gradientTheme="charcoal-crimson"
+        eyebrow="WE DESIGN"
+        title="Brands That"
+        highlightWord="Inspire Trust."
+        description="Creative design solutions that help your brand stand out, connect with your audience and grow your business."
+        primaryCTA={{
+          label: 'Explore Our Work',
+          href: '/work',
+        }}
+        secondaryCTA={{
+          label: 'Our Services',
+          href: '/services',
+        }}
+        supportingContent={
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-6 bg-white/10 backdrop-blur-md border border-white/20 px-6 py-3 rounded-full shadow-lg">
+            <div className="flex -space-x-2 overflow-hidden">
+              <img
+                className="inline-block h-8 w-8 rounded-full ring-2 ring-white/80 object-cover"
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
+                alt="Client reviewer"
+              />
+              <img
+                className="inline-block h-8 w-8 rounded-full ring-2 ring-white/80 object-cover"
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80"
+                alt="Client reviewer"
+              />
+              <img
+                className="inline-block h-8 w-8 rounded-full ring-2 ring-white/80 object-cover"
+                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80"
+                alt="Client reviewer"
+              />
             </div>
-
-            {/* H1 Headline */}
-            <h1 className="font-display font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#2C3D6C] tracking-tight leading-[1.08] break-words">
-              Brands That <span className="text-[#E31E24]">Inspire Trust.</span>
-            </h1>
-
-            {/* Subtitle Paragraph */}
-            <p className="font-sans-body text-sm sm:text-base lg:text-lg text-[#46516A] leading-relaxed max-w-xl">
-              Creative design solutions that help your brand stand out, connect with your audience and grow your business.
-            </p>
-
-            {/* Dual CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
-              <Link
-                to="/work"
-                className="bg-[#E31E24] hover:bg-[#C81920] text-white px-7 sm:px-8 py-3.5 sm:py-4 rounded-full font-cta text-xs font-bold tracking-wider transition-all duration-300 flex items-center justify-center gap-2.5 shadow-md hover:shadow-red-900/20 group"
-                onMouseEnter={() => setCursorState({ variant: 'hover', text: 'WORK' })}
-                onMouseLeave={() => setCursorState({ variant: 'default' })}
-              >
-                <span>Explore Our Work</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-
-              <Link
-                to="/services"
-                className="border border-[#2C3D6C]/30 hover:border-[#2C3D6C] bg-white text-[#2C3D6C] hover:text-[#E31E24] px-7 sm:px-8 py-3.5 sm:py-4 rounded-full font-cta text-xs font-bold tracking-wider transition-all duration-300 flex items-center justify-center gap-2"
-                onMouseEnter={() => setCursorState({ variant: 'hover', text: 'SERVICES' })}
-                onMouseLeave={() => setCursorState({ variant: 'default' })}
-              >
-                <span>Our Services</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            {/* Social Proof Row: 3 Client Avatars + Text */}
-            <div className="pt-6 border-t border-[#E2E6EE] flex items-center gap-4">
-              <div className="flex -space-x-2 overflow-hidden">
-                <img
-                  className="inline-block h-9 w-9 rounded-full ring-2 ring-white object-cover"
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
-                  alt="Client reviewer"
-                />
-                <img
-                  className="inline-block h-9 w-9 rounded-full ring-2 ring-white object-cover"
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80"
-                  alt="Client reviewer"
-                />
-                <img
-                  className="inline-block h-9 w-9 rounded-full ring-2 ring-white object-cover"
-                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80"
-                  alt="Client reviewer"
-                />
+            <div className="text-center sm:text-left">
+              <div className="font-display font-bold text-xs sm:text-sm text-white">
+                120+ Happy Clients Worldwide
               </div>
-              <div>
-                <div className="font-display font-bold text-xs sm:text-sm text-[#2C3D6C]">
-                  120+ Happy Clients
-                </div>
-                <div className="font-sans-body text-[11px] text-[#46516A]">
-                  Worldwide Trust Us
-                </div>
+              <div className="font-mono text-[10px] text-white/75">
+                ★ ★ ★ ★ ★ 5.0 Average Studio Rating
               </div>
             </div>
-          </motion.div>
-
-          {/* Right Column: Creative Visual Presentation */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="lg:col-span-5 flex justify-center lg:justify-end"
-          >
-            <div className="relative w-full max-w-lg bg-white border border-[#E2E6EE] rounded-3xl p-3 sm:p-4 shadow-xl overflow-hidden group">
-              <div className="relative aspect-[4/3] sm:aspect-[16/11] rounded-2xl overflow-hidden bg-[#2C3D6C]/5 border border-[#E2E6EE]/80">
-                <LazyImage
-                  src="/assets/concepts/concept-abstract-hero-01.webp"
-                  alt="Pixelion Design Co. — Tactile Geometric Art Direction & Visual Concept"
-                  priority={true}
-                  placeholderTone="light"
-                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
-                />
-
-                {/* Floating Creative Badge */}
-                <div className="absolute bottom-3 inset-x-3 bg-[#2C3D6C]/90 backdrop-blur-md text-white px-4 py-2.5 rounded-xl border border-white/10 flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <img src="/logo.svg" alt="" className="w-5 h-5 object-contain" />
-                    <div>
-                      <span className="font-display font-extrabold text-xs block leading-tight">
-                        STUDIO ART DIRECTION
-                      </span>
-                      <span className="font-mono text-[9px] text-[#FDFEFE]/80 uppercase">
-                        TACTILE GEOMETRY • EST. 2023
-                      </span>
-                    </div>
-                  </div>
-                  <span className="font-mono text-[9px] font-bold text-[#E31E24] bg-white px-2 py-0.5 rounded-md uppercase">
-                    CONCEPT
-                  </span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* 2. TRUSTED BY 250+ BRANDS WORLDWIDE RIBBON */}
-      <TrustedByRibbon title="TRUSTED BY 250+ BRANDS WORLDWIDE" />
+          </div>
+        }
+        supportingLogosTitle="TRUSTED BY 250+ BRANDS WORLDWIDE"
+        supportingLogos={trustedBrands}
+        onHoverCursor={(text) => setCursorState({ variant: 'hover', text })}
+        onLeaveCursor={() => setCursorState({ variant: 'default' })}
+      />
 
       {/* 3. "WHAT WE DO / Our Creative Services" (8-Card 4x2 Grid) */}
       <section className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
@@ -588,6 +545,7 @@ export default function HomePage({ setCursorState, onOpenContact }: HomePageProp
         <CaseStudyModal
           project={selectedProject}
           onClose={() => setSelectedProject(null)}
+          onSelectProject={(next) => setSelectedProject(next)}
           onOpenContact={onOpenContact}
           setCursorState={setCursorState}
         />

@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, ChevronDown, ArrowRight, ArrowUpRight, Phone, MessageSquare } from 'lucide-react';
+import { Menu, X, ChevronDown, ArrowRight, ArrowUpRight, Phone } from 'lucide-react';
 import { UserSettings, CursorState } from '../types';
 import { MAIN_NAVIGATION, PRIMARY_CTA, NavMenuItem } from '../data/navigationData';
+import { studioInfo } from '../data/pixelionData';
 import NavIcon from './NavIcon';
+import WhatsAppIcon from './WhatsAppIcon';
 
 interface NavigationProps {
   userSettings?: UserSettings;
@@ -315,6 +317,20 @@ export default function Navigation({
 
           {/* Right Action CTA & Mobile Trigger */}
           <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+            {/* Theme-Matched Official WhatsApp Quick Action */}
+            <a
+              href={studioInfo.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Chat on WhatsApp"
+              title="Chat on WhatsApp"
+              onMouseEnter={() => setCursorState({ variant: 'hover', text: 'WHATSAPP' })}
+              onMouseLeave={() => setCursorState({ variant: 'default' })}
+              className="hidden sm:flex w-9 h-9 rounded-full bg-[#2C3D6C]/5 border border-[#E2E6EE] text-[#2C3D6C] hover:bg-[#E31E24] hover:border-[#E31E24] hover:text-white items-center justify-center transition-all duration-200 shrink-0"
+            >
+              <WhatsAppIcon className="w-4 h-4" />
+            </a>
+
             {/* Primary Get a Quote CTA Button */}
             <Link
               to={PRIMARY_CTA.href}
@@ -542,12 +558,12 @@ export default function Navigation({
                   </a>
 
                   <a
-                    href="https://wa.me/917016131424?text=Hello%20Pixelion%20Design%20Co."
+                    href={studioInfo.whatsapp}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 hover:text-emerald-600 transition-colors font-medium text-emerald-700"
+                    className="flex items-center gap-1.5 hover:text-[#E31E24] transition-colors font-bold text-[#2C3D6C]"
                   >
-                    <MessageSquare className="w-3.5 h-3.5 text-emerald-600" />
+                    <WhatsAppIcon className="w-3.5 h-3.5 text-[#E31E24]" />
                     <span>WhatsApp</span>
                   </a>
                 </div>

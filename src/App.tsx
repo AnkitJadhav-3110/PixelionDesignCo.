@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import ContactDrawer from './components/ContactDrawer';
 import CustomizerModal from './components/CustomizerModal';
 import ScrollToTop from './components/ScrollToTop';
+import FloatingWhatsApp from './components/FloatingWhatsApp';
 
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
@@ -242,6 +243,9 @@ export default function App() {
           onUpdateSettings={handleUpdateSettings}
           setCursorState={setCursorState}
         />
+
+        {/* Site-Wide Theme-Matched Floating WhatsApp Button */}
+        <FloatingWhatsApp setCursorState={setCursorState} />
       </div>
     </BrowserRouter>
   );

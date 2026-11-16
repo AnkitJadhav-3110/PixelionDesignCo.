@@ -1,20 +1,20 @@
-import { useState } from 'react';
-import { motion } from 'motion/react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
-  ArrowRight,
   ArrowUpRight,
   Briefcase,
   Users,
   Award,
   Layers,
   ChevronDown,
+  Images,
 } from 'lucide-react';
 import { pixelionProjects } from '../data/pixelionData';
 import { CursorState, Project } from '../types';
 import CaseStudyModal from '../components/CaseStudyModal';
 import SEOHead from '../components/SEOHead';
 import LazyImage from '../components/LazyImage';
+import PageHero from '../components/PageHero';
 import PreFooterBanner from '../components/PreFooterBanner';
 
 interface WorkPageProps {
@@ -22,8 +22,24 @@ interface WorkPageProps {
   onOpenContact: () => void;
 }
 
+interface ShowcaseItem {
+  id: string;
+  title: string;
+  category: string;
+  filterGroups: string[];
+  image: string;
+  objectFit?: 'cover' | 'contain';
+  featuredOrder: number;
+  desc: string;
+  galleryCount?: number;
+}
+
 export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProps) {
-  const [activeTab, setActiveTab] = useState<string>('All Works');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialCategory = searchParams.get('category') || 'All Works';
+  const [activeTab, setActiveTab] = useState<string>(initialCategory);
+  const [sortMode, setSortMode] = useState<'Latest' | 'Featured' | 'A–Z'>('Latest');
+  const [sortMenuOpen, setSortMenuOpen] = useState<boolean>(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const filterTabs = [
@@ -37,207 +53,367 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
     'Digital Invitations',
   ];
 
-  // 12 Projects for the 4x3 Reference Grid
-  const showcaseProjects = [
+  useEffect(() => {
+    const paramCat = searchParams.get('category');
+    if (paramCat && filterTabs.includes(paramCat)) {
+      setActiveTab(paramCat);
+    }
+  }, [searchParams]);
+
+  const handleSelectTab = (tab: string) => {
+    setActiveTab(tab);
+    if (tab === 'All Works') {
+      searchParams.delete('category');
+    } else {
+      searchParams.set('category', tab);
+    }
+    setSearchParams(searchParams, { replace: true });
+  };
+
+  // Curated showcase cards populated with real Pixelion Design Co. portfolio assets
+  const showcaseProjects: ShowcaseItem[] = [
     {
-      id: 'architectura',
-      title: 'Brand Identity Design',
-      category: 'Branding',
-      filterGroup: 'Branding',
-      image: '/assets/concepts/concept-brand-identity-01.webp',
-      desc: 'Corporate stationery suite, gold foil monogram stamping, and executive collateral.',
+      id: 'pixelion-brand-identity',
+      title: 'Pixelion Design Co. Identity',
+      category: 'Branding & Stationery',
+      filterGroups: ['Branding', 'Print Design'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.45.02_PM_cf2a78a4.jpeg',
+      objectFit: 'contain',
+      featuredOrder: 1,
+      galleryCount: 5,
+      desc: 'Master brand sheet, business cards, corporate letterhead, mailing envelopes & merchandise.',
     },
     {
-      id: 'luna-leaf',
-      title: 'Perfume Packaging',
-      category: 'Packaging',
-      filterGroup: 'Packaging',
-      image: '/assets/concepts/concept-packaging-01.webp',
-      desc: 'Frosted amber glass bottle, tactile debossed box, and botanicals label system.',
-    },
-    {
-      id: 'swiss-type',
-      title: 'Corporate Brochure',
-      category: 'Print Design',
-      filterGroup: 'Print Design',
-      image: '/assets/concepts/concept-print-editorial-01.webp',
-      desc: 'Architectural monograph, multi-page editorial spread, and grid typography.',
+      id: 'ab-perfumes',
+      title: 'AB Perfumes Luxury Identity',
+      category: 'Branding & Packaging',
+      filterGroups: ['Branding', 'Packaging'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.37_PM__1__f7955d9d.jpeg',
+      objectFit: 'cover',
+      featuredOrder: 2,
+      desc: 'Bespoke gold & matte obsidian monogram, perfume flacon, rigid box, blade sign & gift bag.',
     },
     {
       id: 'easypay',
-      title: 'Mobile App UI/UX',
+      title: 'Easy Pay Mobile App UI/UX',
       category: 'UI/UX Design',
-      filterGroup: 'UI/UX Design',
-      image: '/assets/concepts/concept-uiux-mobile-01.webp',
-      desc: 'Modern dual smartphone screens for contactless payments and analytics.',
+      filterGroups: ['UI/UX Design'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.35_PM__1__c40d6da4.jpeg',
+      objectFit: 'cover',
+      featuredOrder: 3,
+      desc: 'UPI mobile wallet, scan-to-pay QR flows, and integrated daily life expense analytics.',
     },
     {
-      id: 'social-campaign',
-      title: 'Social Media Campaign',
-      category: 'Social Media',
-      filterGroup: 'Social Media',
-      image: '/assets/concepts/concept-campaign-social-01.webp',
-      desc: 'Curated 3-tile promotional Instagram campaign grid with bold typography.',
+      id: 'gemini-redesign',
+      title: 'Google Gemini UI Redesign',
+      category: 'UI/UX & Web Design',
+      filterGroups: ['UI/UX Design', 'Web Design'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.36_PM__1__5a3335bb.jpeg',
+      objectFit: 'cover',
+      featuredOrder: 4,
+      desc: 'Cross-device mobile dark mode & minimal desktop conversational AI workspace exploration.',
     },
     {
-      id: 'food-flyer',
-      title: 'Food Flyer Design',
-      category: 'Print Design',
-      filterGroup: 'Print Design',
-      image: '/assets/concepts/concept-graphic-poster-01.webp',
-      desc: 'High-contrast promotional flyer with modular geometric layout.',
+      id: 'expert-connect',
+      title: 'Expert Connect Healthcare UX',
+      category: 'UI/UX & Web Design',
+      filterGroups: ['UI/UX Design', 'Web Design'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.35_PM_6b406127.jpeg',
+      objectFit: 'cover',
+      featuredOrder: 5,
+      desc: '5-stage UX methodology, specialist booking web portal & synchronized mobile screens.',
     },
     {
-      id: 'aether-analytics',
-      title: 'E-commerce Website',
-      category: 'Web Design',
-      filterGroup: 'Web Design',
-      image: '/assets/concepts/concept-uiux-dashboard-01.webp',
-      desc: 'Responsive web application dashboard with telemetry metrics cards.',
+      id: 'freshsip-branding',
+      title: 'FreshSip Beverage Identity',
+      category: 'Branding & Packaging',
+      filterGroups: ['Branding', 'Packaging'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.36_PM_6836c314.jpeg',
+      objectFit: 'cover',
+      featuredOrder: 6,
+      galleryCount: 2,
+      desc: 'Minimalist citrus slice logo mark, cold-pressed bottle label & dual-tone stationery.',
     },
     {
-      id: 'wedding-invite',
-      title: 'Wedding Invitation',
+      id: 'choice-chaat-masala',
+      title: 'Choice+ Chaat Masala Box',
+      category: 'Packaging Design',
+      filterGroups: ['Packaging', 'Print Design'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.21_PM__2__e7360007.jpeg',
+      objectFit: 'contain',
+      featuredOrder: 7,
+      desc: 'Retail 100gm FMCG spice carton packaging with bilingual callouts & side specs panel.',
+    },
+    {
+      id: 'invitations-showcase',
+      title: 'Custom Invitations Collection',
       category: 'Digital Invitations',
-      filterGroup: 'Digital Invitations',
-      image: '/assets/concepts/concept-invitation-suite-01.webp',
-      desc: 'Gold foil deckle-edge wedding stationery suite and custom wax seal.',
+      filterGroups: ['Digital Invitations', 'Print Design'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.57.38_PM_b27bdadd.jpeg',
+      objectFit: 'contain',
+      featuredOrder: 8,
+      galleryCount: 6,
+      desc: 'Wedding, Engagement, Vastupujan, Seemant, Mundan & Birthday invitation stationery showcase.',
     },
     {
-      id: 'aethel-lifestyle',
-      title: 'Product Label Design',
-      category: 'Packaging',
-      filterGroup: 'Packaging',
-      image: '/assets/concepts/concept-brand-identity-02.webp',
-      desc: 'Bespoke lifestyle brand packaging, garment tags, and luxury gift boxes.',
-    },
-    {
-      id: 'outdoor-banner',
-      title: 'Outdoor Banner',
+      id: 'snack-wagon-menu',
+      title: 'Snack Wagon Food Menu',
       category: 'Print Design',
-      filterGroup: 'Print Design',
-      image: '/assets/concepts/concept-creative-campaign-01.webp',
-      desc: 'Large-scale advertising exhibition poster with sculptural geometry.',
+      filterGroups: ['Print Design'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.21_PM__1__a93080cc.jpeg',
+      objectFit: 'cover',
+      featuredOrder: 9,
+      galleryCount: 2,
+      desc: 'Two-sided table-tent food menu design with dish medallions and clear price columns.',
     },
     {
-      id: 'letterhead-design',
-      title: 'Letterhead Design',
-      category: 'Branding',
-      filterGroup: 'Branding',
-      image: '/assets/concepts/concept-visual-identity-details-01.webp',
-      desc: 'Macro foil stamped stationery and Pantone color matching system.',
+      id: 'starbucks-poster',
+      title: 'Starbucks Campaign Poster',
+      category: 'Social Media & Ad',
+      filterGroups: ['Social Media', 'Print Design'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.57.01_PM_7638da18.jpeg',
+      objectFit: 'contain',
+      featuredOrder: 10,
+      desc: 'Commercial cold-coffee splash composite campaign poster for social & cafe walls.',
     },
     {
-      id: 'restaurant-menu',
-      title: 'Restaurant Menu',
-      category: 'Print Design',
-      filterGroup: 'Print Design',
-      image: '/assets/concepts/concept-print-editorial-01.webp',
-      desc: 'Editorial food menu layout with structured columns and warm typography.',
+      id: 'modique-poster',
+      title: 'MODIQUE Fashion Poster',
+      category: 'Advertising & Print',
+      filterGroups: ['Print Design', 'Social Media'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.57.00_PM__1__c09efeee.jpeg',
+      objectFit: 'contain',
+      featuredOrder: 11,
+      desc: 'Editorial ivory and champagne mall display poster for seasonal apparel promotions.',
+    },
+    {
+      id: 'institutional-certificates',
+      title: 'Institutional Certificates Suite',
+      category: 'Print & Editorial',
+      filterGroups: ['Print Design'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_9.25.50_PM__1__cb29287d.jpeg',
+      objectFit: 'cover',
+      featuredOrder: 12,
+      galleryCount: 5,
+      desc: 'NMMSS Merit, Kala Mahakumbh, Khel Mahakumbh & Viksit Bharat award certificates.',
+    },
+    {
+      id: 'shree-rang-creation',
+      title: 'Shree Rang Boutique Rollout',
+      category: 'Branding & Signage',
+      filterGroups: ['Branding', 'Print Design'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_9.16.06_PM__1__69df060f.jpeg',
+      objectFit: 'cover',
+      featuredOrder: 13,
+      galleryCount: 3,
+      desc: 'Boutique facade fascia signage, promotional poster & Gujarati visiting card.',
+    },
+    {
+      id: 'ashirwad-transport-billbook',
+      title: 'Ashirwad Transport Tax Invoice',
+      category: 'Bill Book & Print',
+      filterGroups: ['Print Design'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.43.51_PM_0e19fe53.jpeg',
+      objectFit: 'cover',
+      featuredOrder: 14,
+      desc: 'Structured GST tax invoice bill book for logistics & earthmoving contractor in Dahej.',
+    },
+    {
+      id: 'dharvi-beauty-care',
+      title: 'Dharvi Beauty Care Suite',
+      category: 'Branding & Stationery',
+      filterGroups: ['Branding', 'Print Design'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.03_PM_a4e560f4.jpeg',
+      objectFit: 'cover',
+      featuredOrder: 15,
+      desc: 'Blush-pink luxury salon invoice book paired with matte black & gold visiting cards.',
+    },
+    {
+      id: 'accessibility-ux',
+      title: 'Accessibility in UX Study',
+      category: 'UI/UX & Web Design',
+      filterGroups: ['UI/UX Design', 'Web Design'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.37_PM_90866565.jpeg',
+      objectFit: 'cover',
+      featuredOrder: 16,
+      desc: 'Inclusive UX standards focused on WCAG visual clarity, ease, and reachability.',
+    },
+    {
+      id: 'wedding-engagement-cards',
+      title: 'Wedding & Sagai Cards',
+      category: 'Digital Invitations',
+      filterGroups: ['Digital Invitations'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.27_PM_5293278e.jpeg',
+      objectFit: 'contain',
+      featuredOrder: 17,
+      galleryCount: 5,
+      desc: 'Floral watercolor wedding invites, burgundy Sagai Vidhi & custom wedding envelopes.',
+    },
+    {
+      id: 'vastupujan-traditional-cards',
+      title: 'Vastupujan & Sacred Invites',
+      category: 'Digital Invitations',
+      filterGroups: ['Digital Invitations'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.33_PM__1__5c0469f6.jpeg',
+      objectFit: 'contain',
+      featuredOrder: 18,
+      galleryCount: 7,
+      desc: 'Gujarati Vastupujan, Mundan Sanskar Vidhi, Guru Purnima & cultural ceremony invitations.',
+    },
+    {
+      id: 'birthday-milestone-cards',
+      title: 'Birthday & Seemant Invites',
+      category: 'Digital Invitations',
+      filterGroups: ['Digital Invitations'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.26_PM__2__91be272f.jpeg',
+      objectFit: 'contain',
+      featuredOrder: 19,
+      galleryCount: 2,
+      desc: 'First Birthday milestone card & traditional Gujarati Seemant Sanskar baby shower suite.',
+    },
+    {
+      id: 'rang-creation-jewelry',
+      title: 'Rang Creation by Ekta Card',
+      category: 'Branding & Stationery',
+      filterGroups: ['Branding'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.26_PM__1__b132eda8.jpeg',
+      objectFit: 'cover',
+      featuredOrder: 20,
+      desc: 'Wine red & gold luxury business card with integrated WhatsApp catalog QR code.',
+    },
+    {
+      id: 'aspee-prayas-card',
+      title: 'Aspee Prayas Business Card',
+      category: 'Branding & Stationery',
+      filterGroups: ['Branding'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.25_PM__1__dc030cb6.jpeg',
+      objectFit: 'cover',
+      featuredOrder: 21,
+      desc: 'Double-sided corporate card with agricultural machinery lineup for Bharuch distributor.',
+    },
+    {
+      id: 'crafinex-stationery',
+      title: 'Letterheads & Enterprise Cards',
+      category: 'Branding & Stationery',
+      filterGroups: ['Branding', 'Print Design'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.23_PM__1__96c1caef.jpeg',
+      objectFit: 'contain',
+      featuredOrder: 22,
+      galleryCount: 4,
+      desc: 'Crafinex minimalist letterhead, Sahajanand Insurance & institutional stationery suite.',
+    },
+    {
+      id: 'dhruvis-creative-hub',
+      title: "Dhruvi's Creative Hub Standee",
+      category: 'Banner & Exhibition',
+      filterGroups: ['Print Design', 'Social Media'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.57.00_PM_aa188531.jpeg',
+      objectFit: 'contain',
+      featuredOrder: 23,
+      desc: 'Roll-up retail standee showcase with multi-photo gifting grid for Zadeshwar studio.',
+    },
+    {
+      id: 'furniture-sale-banner',
+      title: 'Furniture Gallery Backdrop',
+      category: 'Banner & Print Design',
+      filterGroups: ['Print Design', 'Social Media'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.56.59_PM_9cda0e57.jpeg',
+      objectFit: 'cover',
+      featuredOrder: 24,
+      desc: 'Freestanding large-format exhibition backdrop with curved interior showcase.',
+    },
+    {
+      id: 'shree-shakti-kurta',
+      title: 'Shree Shakti Kurta Billboard',
+      category: 'Outdoor Advertising',
+      filterGroups: ['Print Design', 'Social Media'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_9.25.50_PM_28ec2ecb.jpeg',
+      objectFit: 'cover',
+      featuredOrder: 25,
+      galleryCount: 2,
+      desc: 'High-impact street hoarding banner & business card for Kurta House in Zadeshwar.',
+    },
+    {
+      id: 'science-exhibition-banner',
+      title: 'Stage & Educational Banners',
+      category: 'Event & Print Design',
+      filterGroups: ['Print Design'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.02_PM__1__49961833.jpeg',
+      objectFit: 'cover',
+      featuredOrder: 26,
+      galleryCount: 2,
+      desc: 'Ganit Vigyan Pradarshan & Kala Mahakumbh cultural auditorium backdrop banners.',
+    },
+    {
+      id: 'gujarati-delights-menu',
+      title: 'Gujarati Delights Lightbox',
+      category: 'Food Signage & Print',
+      filterGroups: ['Print Design', 'Social Media'],
+      image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_9.08.45_PM_3091c4a0.jpeg',
+      objectFit: 'cover',
+      featuredOrder: 27,
+      desc: 'Illuminated bilingual snack menu wall display for cafe and street-food counters.',
     },
   ];
 
-  const filteredProjects =
+  const filteredProjects = (
     activeTab === 'All Works'
       ? showcaseProjects
-      : showcaseProjects.filter((p) => p.filterGroup === activeTab);
+      : showcaseProjects.filter((p) => p.filterGroups.includes(activeTab))
+  )
+    .slice()
+    .sort((a, b) => {
+      if (sortMode === 'A–Z') return a.title.localeCompare(b.title);
+      if (sortMode === 'Featured') return a.featuredOrder - b.featuredOrder;
+      return a.featuredOrder - b.featuredOrder;
+    });
 
   return (
-    <div className="pt-24 sm:pt-28 pb-12">
+    <div className="pb-12">
       <SEOHead
         title="Portfolio & Work | Pixelion Design Co."
-        description="Explore our creative design portfolio: Branding, UI/UX, Print, Packaging, Social Media, and Event Stationery in Bharuch, Gujarat."
+        description="Explore our creative design portfolio: Branding, UI/UX, Print, Packaging, Social Media, Certificates, Banners, Menus, and Event Stationery in Bharuch, Gujarat."
         canonicalPath="/work"
       />
 
-      {/* 1. HERO SECTION (Matching 05-case-study-reference.jpeg) */}
-      <section className="relative px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto py-10 sm:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Column: Eyebrow, Headline, Subtitle, 2 CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-7 space-y-6"
-          >
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-xs font-bold text-[#E31E24] tracking-widest uppercase">
-                OUR PORTFOLIO
-              </span>
-            </div>
+      {/* Cinematic Hero */}
+      <PageHero
+        gradientTheme="obsidian-bronze"
+        breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Portfolio & Work' }]}
+        badge="250+ CLIENT DELIVERIES"
+        title="Work That Speaks"
+        highlightWord="Creativity & Results"
+        subtitle="Precision craft across physical print, packaging, digital experiences, and brand systems."
+        description="Explore our curated portfolio of completed client projects, stationery suites, invitations, packaging, and in-depth UI/UX case studies crafted for ambitious brands."
+        primaryCTA={{
+          label: 'Start a Project',
+          onClick: onOpenContact,
+          isPrimary: true,
+        }}
+        secondaryCTA={{
+          label: 'Explore Services',
+          href: '/services',
+        }}
+        supportingLogosTitle="FEATURED INDUSTRIES & CLIENT CATEGORIES"
+        supportingLogos={[
+          { name: 'Fintech & Payments', accent: '#E31E24' },
+          { name: 'Hospitality & F&B' },
+          { name: 'Healthcare & SaaS' },
+          { name: 'Retail & Apparel' },
+          { name: 'Ceremonial & Institutions' },
+        ]}
+      />
 
-            <h1 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-[#2C3D6C] tracking-tight leading-[1.08] break-words">
-              Work That Speaks <br />
-              <span className="text-[#E31E24]">Creativity & Results.</span>
-            </h1>
-
-            <p className="font-sans-body text-sm sm:text-base lg:text-lg text-[#46516A] leading-relaxed max-w-xl">
-              Explore our creative work that helps brands stand out, connect with their audience and achieve real success.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
-              <button
-                onClick={onOpenContact}
-                className="bg-[#E31E24] hover:bg-[#C81920] text-white px-7 sm:px-8 py-3.5 sm:py-4 rounded-full font-cta text-xs font-bold tracking-wider transition-all duration-300 flex items-center justify-center gap-2.5 shadow-md hover:shadow-red-900/20 group"
-                onMouseEnter={() => setCursorState({ variant: 'hover', text: 'START' })}
-                onMouseLeave={() => setCursorState({ variant: 'default' })}
-              >
-                <span>Start a Project</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-
-              <Link
-                to="/services"
-                className="border border-[#2C3D6C]/30 hover:border-[#2C3D6C] bg-white text-[#2C3D6C] hover:text-[#E31E24] px-7 sm:px-8 py-3.5 sm:py-4 rounded-full font-cta text-xs font-bold tracking-wider transition-all duration-300 flex items-center justify-center gap-2"
-                onMouseEnter={() => setCursorState({ variant: 'hover', text: 'SERVICES' })}
-                onMouseLeave={() => setCursorState({ variant: 'default' })}
-              >
-                <span>View All Services</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </motion.div>
-
-          {/* Right Column: Hero Visual Presentation */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="lg:col-span-5 flex justify-center lg:justify-end"
-          >
-            <div className="relative w-full max-w-lg bg-white border border-[#E2E6EE] rounded-3xl p-3 sm:p-4 shadow-xl overflow-hidden group">
-              <div className="relative aspect-[4/3] sm:aspect-[16/11] rounded-2xl overflow-hidden bg-[#2C3D6C]/5 border border-[#E2E6EE]/80">
-                <LazyImage
-                  src="/assets/concepts/concept-uiux-mobile-01.webp"
-                  alt="Pixelion Design Co. — Digital Product & Portfolio Work"
-                  priority={true}
-                  placeholderTone="light"
-                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
-                />
-                <div className="absolute bottom-3 inset-x-3 bg-[#2C3D6C]/90 backdrop-blur-md text-white px-4 py-2.5 rounded-xl border border-white/10 flex items-center justify-between">
-                  <span className="font-display font-extrabold text-xs">
-                    FEATURED SHOWCASE
-                  </span>
-                  <span className="font-mono text-[9px] text-[#E31E24] bg-white px-2 py-0.5 rounded-md font-bold uppercase">
-                    12 PROJECTS
-                  </span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* 2. FILTER PILLS & 12-CARD SHOWCASE GRID (4x3) */}
+      {/* 2. FILTER PILLS & SHOWCASE GRID */}
       <section className="py-12 sm:py-16 border-t border-[#E2E6EE]/80 bg-[#FDFEFE]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
-          {/* Filter Bar with Sort Selector */}
+          {/* Filter Bar with Working Sort Selector */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-10 sm:mb-12">
-            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 sm:gap-2.5">
               {filterTabs.map((tab) => (
                 <button
                   key={tab}
-                  onClick={() => setActiveTab(tab)}
+                  onClick={() => handleSelectTab(tab)}
                   className={`px-4 sm:px-5 py-2 rounded-full font-sans-body text-xs font-bold transition-all ${
                     activeTab === tab
                       ? 'bg-[#E31E24] text-white shadow-sm'
@@ -249,45 +425,83 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
               ))}
             </div>
 
-            <div className="flex items-center gap-2 text-xs font-bold text-[#46516A] bg-white border border-[#E2E6EE] px-4 py-2 rounded-full cursor-pointer hover:border-[#2C3D6C]">
-              <span>Latest</span>
-              <ChevronDown className="w-3.5 h-3.5" />
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setSortMenuOpen((prev) => !prev)}
+                className="flex items-center gap-2 text-xs font-bold text-[#46516A] bg-white border border-[#E2E6EE] px-4 py-2 rounded-full cursor-pointer hover:border-[#2C3D6C]"
+              >
+                <span>{sortMode}</span>
+                <ChevronDown className="w-3.5 h-3.5" />
+              </button>
+              {sortMenuOpen && (
+                <div className="absolute right-0 mt-2 w-36 bg-white border border-[#E2E6EE] rounded-2xl shadow-lg py-1.5 z-20">
+                  {(['Latest', 'Featured', 'A–Z'] as const).map((mode) => (
+                    <button
+                      key={mode}
+                      type="button"
+                      onClick={() => {
+                        setSortMode(mode);
+                        setSortMenuOpen(false);
+                      }}
+                      className={`w-full text-left px-4 py-2 text-xs font-bold transition-colors ${
+                        sortMode === mode
+                          ? 'text-[#E31E24] bg-[#E31E24]/5'
+                          : 'text-[#2C3D6C] hover:bg-[#F5F7FA]'
+                      }`}
+                    >
+                      {mode}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
-          {/* 12-Card Showcase Grid (4x3 on large screens) */}
+          {/* Responsive Portfolio Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7">
             {filteredProjects.map((proj) => (
               <div
-                key={proj.title}
+                key={proj.id}
                 onClick={() => {
                   const match = pixelionProjects.find((p) => p.id === proj.id) || pixelionProjects[0];
                   setSelectedProject(match);
                 }}
                 className="bg-white border border-[#E2E6EE] hover:border-[#E31E24] rounded-2xl overflow-hidden group cursor-pointer transition-all duration-300 hover:shadow-lg flex flex-col justify-between"
               >
-                <div className="relative aspect-[4/3] overflow-hidden bg-[#2C3D6C]/5">
+                <div
+                  className={`relative aspect-[4/3] overflow-hidden ${
+                    proj.objectFit === 'contain' ? 'bg-[#F3F5F9] p-2' : 'bg-[#2C3D6C]/5'
+                  }`}
+                >
                   <LazyImage
                     src={proj.image}
                     alt={proj.title}
                     placeholderTone="light"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    objectFit={proj.objectFit || 'cover'}
+                    className="w-full h-full group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center text-[#E31E24] opacity-0 group-hover:opacity-100 transition-opacity">
+                  {proj.galleryCount && proj.galleryCount > 1 && (
+                    <div className="absolute bottom-2.5 left-2.5 bg-[#2C3D6C]/90 text-white px-2.5 py-1 rounded-full font-mono text-[10px] font-bold flex items-center gap-1 shadow-xs">
+                      <Images className="w-3 h-3 text-[#E31E24]" />
+                      <span>{proj.galleryCount} Views</span>
+                    </div>
+                  )}
+                  <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center text-[#E31E24] opacity-0 group-hover:opacity-100 transition-opacity shadow-xs">
                     <ArrowUpRight className="w-4 h-4" />
                   </div>
                 </div>
 
-                <div className="p-5 flex items-center justify-between border-t border-[#E2E6EE]/80">
-                  <div>
-                    <h3 className="font-display font-extrabold text-sm text-[#2C3D6C] group-hover:text-[#E31E24] transition-colors">
+                <div className="p-5 flex items-center justify-between gap-2 border-t border-[#E2E6EE]/80">
+                  <div className="min-w-0">
+                    <h3 className="font-display font-extrabold text-sm text-[#2C3D6C] group-hover:text-[#E31E24] transition-colors truncate">
                       {proj.title}
                     </h3>
-                    <span className="font-mono text-[10px] text-[#46516A]/70 uppercase">
+                    <span className="font-mono text-[10px] text-[#46516A]/80 uppercase block truncate mt-0.5">
                       {proj.category}
                     </span>
                   </div>
-                  <span className="text-[#E31E24] font-bold text-xs group-hover:translate-x-0.5 transition-transform">
+                  <span className="text-[#E31E24] font-bold text-xs group-hover:translate-x-0.5 transition-transform shrink-0">
                     →
                   </span>
                 </div>
@@ -297,7 +511,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
         </div>
       </section>
 
-      {/* 3. INTEGRATED STATS BAR (From 05-case-study-reference.jpeg) */}
+      {/* 3. INTEGRATED STATS BAR */}
       <section className="py-10 border-t border-[#E2E6EE]/80 bg-[#FDFEFE]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
@@ -344,6 +558,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
         <CaseStudyModal
           project={selectedProject}
           onClose={() => setSelectedProject(null)}
+          onSelectProject={(next) => setSelectedProject(next)}
           onOpenContact={onOpenContact}
           setCursorState={setCursorState}
         />

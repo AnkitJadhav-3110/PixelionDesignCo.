@@ -10,7 +10,6 @@ import {
   Lightbulb,
   Target,
   Eye,
-  MessageCircle,
   ExternalLink,
   Linkedin,
   Instagram,
@@ -20,8 +19,9 @@ import { studioInfo } from '../data/pixelionData';
 import { CursorState } from '../types';
 import SEOHead from '../components/SEOHead';
 import LazyImage from '../components/LazyImage';
+import PageHero from '../components/PageHero';
 import PreFooterBanner from '../components/PreFooterBanner';
-import founderImage from '../assets/images/dhruvrajsinh-rana.jpg';
+import WhatsAppIcon from '../components/WhatsAppIcon';
 
 interface FounderPageProps {
   setCursorState: (state: CursorState) => void;
@@ -74,134 +74,44 @@ export default function FounderPage({ setCursorState, onOpenContact }: FounderPa
   ];
 
   return (
-    <div className="pt-24 sm:pt-28 pb-12">
+    <div className="pb-12">
       <SEOHead
         title="Founder — Dhruvrajsinh Rana | Pixelion Design Co."
         description="Meet Dhruvrajsinh Rana, founder of Pixelion Design Co. Learn about his creative philosophy, vision for thoughtful design, and studio approach."
         canonicalPath="/founder"
       />
 
-      {/* SECTION 1: FOUNDER HERO (Editorial 2-Column Layout) */}
-      <section className="relative px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto py-10 sm:py-16 lg:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Column: Eyebrow, Founder Name, Natural Introduction, CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-7 space-y-6"
-          >
-            {/* Eyebrow */}
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-xs font-bold text-[#E31E24] tracking-widest uppercase">
-                — THE PERSON BEHIND PIXELION
-              </span>
-            </div>
-
-            {/* Founder Name */}
-            <h1 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-[#2C3D6C] tracking-tight leading-[1.08] break-words">
-              Dhruvrajsinh Rana
-            </h1>
-
-            {/* Subtitle Role */}
-            <p className="font-mono text-xs sm:text-sm font-bold text-[#E31E24] uppercase tracking-wider">
-              Founder & Creative Designer
-            </p>
-
-            {/* Short Professional Introduction */}
-            <p className="font-sans-body text-sm sm:text-base lg:text-lg text-[#46516A] leading-relaxed max-w-xl">
-              I lead Pixelion Design Co. with a focus on creative thinking, graphic discipline, and thoughtful digital experiences. My approach centers on helping brands communicate with clarity, authenticity, and enduring visual intent.
-            </p>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
-              <Link
-                to="/contact"
-                className="bg-[#E31E24] hover:bg-[#C81920] text-white px-7 sm:px-8 py-3.5 sm:py-4 rounded-full font-cta text-xs font-bold tracking-wider transition-all duration-300 flex items-center justify-center gap-2.5 shadow-md hover:shadow-red-900/20 group"
-                onMouseEnter={() => setCursorState({ variant: 'hover', text: 'CONNECT' })}
-                onMouseLeave={() => setCursorState({ variant: 'default' })}
-              >
-                <span>Connect Directly</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-
-              <a
-                href={studioInfo.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="border border-[#2C3D6C]/30 hover:border-[#2C3D6C] bg-white text-[#2C3D6C] hover:text-[#E31E24] px-7 sm:px-8 py-3.5 sm:py-4 rounded-full font-cta text-xs font-bold tracking-wider transition-all duration-300 flex items-center justify-center gap-2"
-                onMouseEnter={() => setCursorState({ variant: 'hover', text: 'WHATSAPP' })}
-                onMouseLeave={() => setCursorState({ variant: 'default' })}
-              >
-                <MessageCircle className="w-4 h-4 text-emerald-600" />
-                <span>WhatsApp Chat</span>
-              </a>
-            </div>
-
-            {/* Verified Credentials Download */}
-            <div className="pt-6 border-t border-[#E2E6EE] flex flex-wrap items-center gap-4 text-xs font-sans-body text-[#46516A]">
-              <a
-                href="/assets/Dhruvrajsinh_Rana_Graphic_CV.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#2C3D6C] hover:text-[#E31E24] transition-colors"
-              >
-                <Download className="w-3.5 h-3.5 text-[#E31E24]" />
-                <span>Download Graphic Design CV (PDF)</span>
-              </a>
-              <span>•</span>
-              <a
-                href="/assets/Dhruvrajsinh_Rana_Graphic_Design_Certificate.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#2C3D6C] hover:text-[#E31E24] transition-colors"
-              >
-                <ExternalLink className="w-3.5 h-3.5 text-[#E31E24]" />
-                <span>Canva Design Certificate (PDF)</span>
-              </a>
-            </div>
-          </motion.div>
-
-          {/* Right Column: Genuine Founder Portrait Image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="lg:col-span-5 flex justify-center lg:justify-end"
-          >
-            <div className="relative w-full max-w-md bg-white border border-[#E2E6EE] rounded-3xl p-3 sm:p-4 shadow-xl overflow-hidden group">
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-[#2C3D6C]/5 border border-[#E2E6EE]/80">
-                <img
-                  src={founderImage || '/assets/dhruvrajsinh-rana.jpg'}
-                  alt="Dhruvrajsinh Rana — Founder of Pixelion Design Co."
-                  className="w-full h-full object-cover object-top group-hover:scale-103 transition-transform duration-700"
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    if (target.src !== '/assets/dhruvrajsinh-rana.jpg') {
-                      target.src = '/assets/dhruvrajsinh-rana.jpg';
-                    }
-                  }}
-                />
-
-                {/* Floating Founder Badge */}
-                <div className="absolute bottom-3 inset-x-3 bg-[#2C3D6C]/90 backdrop-blur-md text-white px-4 py-2.5 rounded-xl border border-white/10 flex items-center justify-between">
-                  <div>
-                    <span className="font-display font-extrabold text-xs block leading-tight">
-                      DHRUVRAJSINH RANA
-                    </span>
-                    <span className="font-mono text-[9px] text-[#FDFEFE]/80 uppercase">
-                      BHARUCH, GUJARAT, INDIA
-                    </span>
-                  </div>
-                  <span className="font-mono text-[9px] font-bold text-[#E31E24] bg-white px-2 py-0.5 rounded-md uppercase">
-                    FOUNDER
-                  </span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* Editorial Light Hero */}
+      <PageHero
+        gradientTheme="ice-white"
+        breadcrumbs={[
+          { label: 'Home', href: '/' },
+          { label: 'About Us', href: '/about' },
+          { label: 'Founder' },
+        ]}
+        badge="STUDIO LEADERSHIP & DIRECTION"
+        title="Dhruvrajsinh"
+        highlightWord="Rana"
+        subtitle="Founder & Creative Designer — Pixelion Design Co."
+        description="Leading with graphic discipline, strategic empathy, and thoughtful digital craft. Helping ambitious brands communicate with clarity, authenticity, and enduring visual intent."
+        primaryCTA={{
+          label: 'Connect Directly',
+          href: '/contact',
+          isPrimary: true,
+        }}
+        secondaryCTA={{
+          label: 'WhatsApp Chat',
+          href: studioInfo.whatsapp,
+          icon: <WhatsAppIcon className="w-4 h-4" />,
+        }}
+        supportingLogosTitle="ACCREDITATIONS & RECOGNITION"
+        supportingLogos={[
+          { name: 'CED Gujarat Certified', accent: '#E31E24' },
+          { name: 'Red & White Multimedia' },
+          { name: 'Canva Design Certified' },
+          { name: '120+ Brands Launched' },
+        ]}
+      />
 
       {/* SECTION 2: FOUNDER INTRODUCTION (The Vision Behind Pixelion) */}
       <section className="py-16 sm:py-24 bg-[#FDFEFE] border-y border-[#E2E6EE]/80">
@@ -212,8 +122,8 @@ export default function FounderPage({ setCursorState, onOpenContact }: FounderPa
               <div className="relative rounded-3xl overflow-hidden border border-[#E2E6EE] shadow-xl group bg-white p-3">
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-[#2C3D6C]/5 border border-[#E2E6EE]/80">
                   <LazyImage
-                    src="/assets/concepts/concept-brand-identity-02.webp"
-                    alt="The Vision Behind Pixelion Design Co."
+                    src="/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.22_PM_673b0254.jpeg"
+                    alt="Pixelion Design Co. Stationery, Notebook & Brand Identity Craftsmanship"
                     placeholderTone="light"
                     className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
                   />
@@ -277,6 +187,16 @@ export default function FounderPage({ setCursorState, onOpenContact }: FounderPa
                   title="Instagram"
                 >
                   <Instagram className="w-4 h-4" />
+                </a>
+                <a
+                  href={studioInfo.whatsapp}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-10 h-10 rounded-full bg-[#2C3D6C]/5 hover:bg-[#E31E24] hover:text-white flex items-center justify-center transition-colors text-[#2C3D6C]"
+                  title="WhatsApp"
+                  aria-label="WhatsApp"
+                >
+                  <WhatsAppIcon className="w-4 h-4" />
                 </a>
               </div>
             </div>
@@ -375,8 +295,8 @@ export default function FounderPage({ setCursorState, onOpenContact }: FounderPa
               <div className="relative rounded-3xl overflow-hidden border border-[#E2E6EE] shadow-xl group bg-white p-3">
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-[#2C3D6C]/5 border border-[#E2E6EE]/80">
                   <LazyImage
-                    src="/assets/concepts/founder-creative-intent.jpg"
-                    alt="Pixelion Design Co. — Creative Intent & Design Thinking Sculpture"
+                    src="/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.37_PM_90866565.jpeg"
+                    alt="Accessibility in UX Design — Research by Dhruvrajsinh Rana"
                     placeholderTone="light"
                     className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
                   />

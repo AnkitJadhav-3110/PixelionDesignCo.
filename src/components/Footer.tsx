@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Instagram, Linkedin, MessageCircle, ExternalLink } from 'lucide-react';
+import { ArrowUpRight, Instagram, Linkedin, ExternalLink } from 'lucide-react';
 import { studioInfo } from '../data/pixelionData';
+import WhatsAppIcon from './WhatsAppIcon';
 import { CursorState } from '../types';
 
 interface FooterProps {
@@ -83,10 +84,11 @@ export default function Footer({ setCursorState, onOpenContact }: FooterProps) {
                 rel="noreferrer"
                 className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#E31E24] hover:text-white transition-all text-white/80"
                 title="WhatsApp"
+                aria-label="WhatsApp"
                 onMouseEnter={() => setCursorState({ variant: 'hover', text: 'WHATSAPP' })}
                 onMouseLeave={() => setCursorState({ variant: 'default' })}
               >
-                <MessageCircle className="w-4 h-4" />
+                <WhatsAppIcon className="w-4 h-4" />
               </a>
             </div>
           </div>
@@ -152,7 +154,7 @@ export default function Footer({ setCursorState, onOpenContact }: FooterProps) {
             </h4>
             <div className="space-y-3 font-sans-body text-xs text-white/80">
               <p className="flex items-center gap-2">
-                <span className="text-[#E31E24]">📞</span>
+                <WhatsAppIcon className="w-4 h-4 text-[#E31E24] shrink-0" />
                 <a href={studioInfo.whatsapp} target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
                   +91-70161 31424
                 </a>

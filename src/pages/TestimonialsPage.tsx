@@ -8,9 +8,11 @@ import {
   Quote,
   ArrowRight,
 } from 'lucide-react';
+import { trustedBrands } from '../data/pixelionData';
 import { CursorState } from '../types';
 import SEOHead from '../components/SEOHead';
 import LazyImage from '../components/LazyImage';
+import PageHero from '../components/PageHero';
 import PreFooterBanner from '../components/PreFooterBanner';
 
 interface TestimonialsPageProps {
@@ -112,68 +114,34 @@ export default function TestimonialsPage({ setCursorState }: TestimonialsPagePro
   ];
 
   return (
-    <div className="pt-24 sm:pt-28 pb-12">
+    <div className="pb-12">
       <SEOHead
         title="Client Testimonials | Pixelion Design Co."
         description="Read client testimonials and verified reviews from businesses across Gujarat and India who trust Pixelion Design Co."
         canonicalPath="/testimonials"
       />
 
-      {/* 1. HERO SECTION (Matching additional-testimonials-reference.jpeg) */}
-      <section className="relative px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto py-10 sm:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Column: Eyebrow, Headline, Paragraph */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-7 space-y-6"
-          >
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-xs font-bold text-[#E31E24] tracking-widest uppercase">
-                TESTIMONIALS
-              </span>
-            </div>
-
-            <h1 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-[#2C3D6C] tracking-tight leading-[1.08] break-words">
-              Trusted by Clients, <br />
-              <span className="text-[#E31E24]">Driven by Results.</span>
-            </h1>
-
-            <p className="font-sans-body text-sm sm:text-base lg:text-lg text-[#46516A] leading-relaxed max-w-xl">
-              We take pride in delivering creative design solutions that help businesses grow. Here's what our amazing clients have to say about working with us.
-            </p>
-          </motion.div>
-
-          {/* Right Column: Visual Presentation */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="lg:col-span-5 flex justify-center lg:justify-end"
-          >
-            <div className="relative w-full max-w-lg bg-white border border-[#E2E6EE] rounded-3xl p-3 sm:p-4 shadow-xl overflow-hidden group">
-              <div className="relative aspect-[4/3] sm:aspect-[16/11] rounded-2xl overflow-hidden bg-[#2C3D6C]/5 border border-[#E2E6EE]/80">
-                <LazyImage
-                  src="/assets/concepts/concept-uiux-dashboard-01.webp"
-                  alt="Pixelion Design Co. — Client Reviews & Project Showcase"
-                  priority={true}
-                  placeholderTone="light"
-                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
-                />
-                {/* 5-Star Floating Badges */}
-                <div className="absolute top-3 left-3 bg-[#E31E24] text-white px-3 py-1.5 rounded-xl shadow-lg flex items-center gap-1 text-xs font-bold">
-                  <span>★★★★★</span>
-                  <span className="text-[10px] ml-1">5.0</span>
-                </div>
-                <div className="absolute bottom-3 right-3 bg-[#2C3D6C] text-white px-3 py-1.5 rounded-xl shadow-lg flex items-center gap-1 text-xs font-bold">
-                  <span>98% Client Satisfaction</span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* Cinematic Hero */}
+      <PageHero
+        gradientTheme="midnight-steel"
+        breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Testimonials' }]}
+        badge="VERIFIED CLIENT REVIEWS • 5.0 RATING"
+        title="Trusted by Clients,"
+        highlightWord="Driven by Results"
+        subtitle="Real feedback from ambitious founders, marketing leads, and established brands."
+        description="We take immense pride in crafting bespoke design solutions that fuel genuine commercial growth and lasting emotional resonance across 120+ client partnerships."
+        primaryCTA={{
+          label: 'Start Your Partnership',
+          href: '/contact',
+          isPrimary: true,
+        }}
+        secondaryCTA={{
+          label: 'Explore Our Work',
+          href: '/work',
+        }}
+        supportingLogosTitle="TRUSTED BY LEADING BUSINESSES ACROSS GUJARAT & INDIA"
+        supportingLogos={trustedBrands}
+      />
 
       {/* 2. 4-CARD STATS BAR */}
       <section className="py-8 sm:py-10 border-t border-[#E2E6EE]/80 bg-[#FDFEFE]">

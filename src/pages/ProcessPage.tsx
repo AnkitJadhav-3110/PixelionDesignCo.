@@ -19,6 +19,7 @@ import {
 import { CursorState } from '../types';
 import SEOHead from '../components/SEOHead';
 import LazyImage from '../components/LazyImage';
+import PageHero from '../components/PageHero';
 import PreFooterBanner from '../components/PreFooterBanner';
 
 interface ProcessPageProps {
@@ -96,110 +97,40 @@ export default function ProcessPage({ setCursorState, onOpenContact }: ProcessPa
   ];
 
   return (
-    <div className="pt-24 sm:pt-28 pb-12">
+    <div className="pb-12">
       <SEOHead
         title="Our Process | Pixelion Design Co."
         description="Discover Pixelion Design Co.'s 5-stage agency design process: Discover, Strategise, Design, Develop, and Deliver & Refine."
         canonicalPath="/process"
       />
 
-      {/* SECTION 1: HERO (Split Layout Matching Agency Aesthetic) */}
-      <section className="relative px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto py-10 sm:py-16 lg:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Column: Eyebrow, Main Heading, Copy, Dual CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-7 space-y-6"
-          >
-            {/* Small Eyebrow Label */}
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-xs font-bold text-[#E31E24] tracking-widest uppercase">
-                — OUR PROCESS
-              </span>
-            </div>
-
-            {/* Main Heading */}
-            <h1 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-[#2C3D6C] tracking-tight leading-[1.08] break-words">
-              A Clear Process. <br />
-              <span className="text-[#E31E24]">Creative Excellence.</span>
-            </h1>
-
-            {/* Supporting Paragraph */}
-            <p className="font-sans-body text-sm sm:text-base lg:text-lg text-[#46516A] leading-relaxed max-w-xl">
-              We believe great design is not accidental. It is the outcome of a structured, thoughtful methodology that transforms raw ideas into purposeful visual communication and digital experiences.
-            </p>
-
-            {/* Dual CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
-              <Link
-                to="/get-a-quote"
-                className="bg-[#E31E24] hover:bg-[#C81920] text-white px-7 sm:px-8 py-3.5 sm:py-4 rounded-full font-cta text-xs font-bold tracking-wider transition-all duration-300 flex items-center justify-center gap-2.5 shadow-md hover:shadow-red-900/20 group"
-                onMouseEnter={() => setCursorState({ variant: 'hover', text: 'START' })}
-                onMouseLeave={() => setCursorState({ variant: 'default' })}
-              >
-                <span>Start a Project</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-
-              <Link
-                to="/services"
-                className="border border-[#2C3D6C]/30 hover:border-[#2C3D6C] bg-white text-[#2C3D6C] hover:text-[#E31E24] px-7 sm:px-8 py-3.5 sm:py-4 rounded-full font-cta text-xs font-bold tracking-wider transition-all duration-300 flex items-center justify-center gap-2"
-                onMouseEnter={() => setCursorState({ variant: 'hover', text: 'SERVICES' })}
-                onMouseLeave={() => setCursorState({ variant: 'default' })}
-              >
-                <span>Explore Our Services</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            {/* Process Snapshot Indicators */}
-            <div className="pt-6 border-t border-[#E2E6EE] flex flex-wrap items-center gap-3 font-mono text-[11px] sm:text-xs text-[#46516A]">
-              <span className="text-[#2C3D6C] font-bold">5 Distinct Stages</span>
-              <span>•</span>
-              <span>Collaborative Milestones</span>
-              <span>•</span>
-              <span className="text-[#E31E24] font-bold">Refined Execution</span>
-            </div>
-          </motion.div>
-
-          {/* Right Column: AI-Generated Abstract Creative Visual */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="lg:col-span-5 flex justify-center lg:justify-end"
-          >
-            <div className="relative w-full max-w-lg bg-white border border-[#E2E6EE] rounded-3xl p-3 sm:p-4 shadow-xl overflow-hidden group">
-              <div className="relative aspect-[16/10] sm:aspect-[4/3] rounded-2xl overflow-hidden bg-[#2C3D6C]/5 border border-[#E2E6EE]/80">
-                <LazyImage
-                  src="/assets/concepts/process-hero-abstract.jpg"
-                  alt="Pixelion Design Co. — Abstract Creative Process Visual"
-                  priority={true}
-                  placeholderTone="light"
-                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
-                />
-
-                {/* Floating Process Overlay Tag */}
-                <div className="absolute bottom-3 inset-x-3 bg-[#2C3D6C]/90 backdrop-blur-md text-white px-4 py-2.5 rounded-xl border border-white/10 flex items-center justify-between">
-                  <div>
-                    <span className="font-display font-extrabold text-xs block leading-tight">
-                      METHODOLOGY IN MOTION
-                    </span>
-                    <span className="font-mono text-[9px] text-[#FDFEFE]/80 uppercase">
-                      5-STAGE STRUCTURED FLOW
-                    </span>
-                  </div>
-                  <span className="font-mono text-[9px] font-bold text-[#E31E24] bg-white px-2 py-0.5 rounded-md uppercase">
-                    PROCESS
-                  </span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* Cinematic Hero */}
+      <PageHero
+        gradientTheme="midnight-burgundy"
+        breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Our Process' }]}
+        badge="5-STAGE METHODOLOGY"
+        title="A Clear Process."
+        highlightWord="Creative Excellence"
+        subtitle="Structured, thoughtful methodology that turns raw ideas into enduring design systems."
+        description="We believe great design is not accidental. Discover our five-stage iterative framework engineered for transparency, collaboration, and high creative standards at every milestone."
+        primaryCTA={{
+          label: 'Start a Project',
+          href: '/get-a-quote',
+          isPrimary: true,
+        }}
+        secondaryCTA={{
+          label: 'Explore Services',
+          href: '/services',
+        }}
+        supportingLogosTitle="OUR 5-STAGE WORKFLOW MILESTONES"
+        supportingLogos={[
+          { name: '01 Discover', accent: '#E31E24' },
+          { name: '02 Strategise' },
+          { name: '03 Design' },
+          { name: '04 Develop' },
+          { name: '05 Deliver & Refine' },
+        ]}
+      />
 
       {/* SECTION 2: PROCESS OVERVIEW (Connected Visual Timeline / Step Grid) */}
       <section className="py-16 sm:py-24 bg-[#FDFEFE] border-y border-[#E2E6EE]/80">
@@ -279,8 +210,8 @@ export default function ProcessPage({ setCursorState, onOpenContact }: ProcessPa
             <div className="relative rounded-3xl overflow-hidden border border-[#E2E6EE] shadow-xl group bg-white p-3">
               <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-[#2C3D6C]/5 border border-[#E2E6EE]/80">
                 <LazyImage
-                  src="/assets/concepts/collaboration-abstract.jpg"
-                  alt="Pixelion Design Co. — Collaborative Design Alignment"
+                  src="/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.35_PM_6b406127.jpeg"
+                  alt="Expert Connect 5-Stage UX Process — Empathise, Define, Ideate, Design, Prototyping"
                   placeholderTone="light"
                   className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
                 />

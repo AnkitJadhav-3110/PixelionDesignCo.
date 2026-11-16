@@ -158,7 +158,7 @@ export default function CaseStudyModal({
             </div>
 
             {/* Hero Image / Video */}
-            <div className="relative w-full aspect-video rounded-3xl overflow-hidden bg-black mb-12 border border-[#E2E6EE] shadow-lg">
+            <div className="relative w-full aspect-video rounded-3xl overflow-hidden bg-[#F3F5F9] mb-12 border border-[#E2E6EE] shadow-lg">
               {project.videoUrl ? (
                 <video
                   autoPlay
@@ -174,8 +174,9 @@ export default function CaseStudyModal({
                 <LazyImage
                   src={project.heroImage}
                   alt={project.title}
-                  placeholderTone="dark"
-                  className="w-full h-full object-cover"
+                  placeholderTone="light"
+                  objectFit="contain"
+                  className="w-full h-full"
                 />
               )}
             </div>
@@ -231,19 +232,22 @@ export default function CaseStudyModal({
               {/* Gallery Grid */}
               <div>
                 <h3 className="font-sans-body text-xs font-bold tracking-widest text-[#46516A] uppercase mb-6">
-                  GALLERY & INTERACTION HIGHLIGHTS
+                  GALLERY &amp; MOCKUP SHOWCASE ({project.galleryImages.length})
                 </h3>
-                <div className="grid grid-cols-1 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {project.galleryImages.map((img, idx) => (
                     <div
-                      key={idx}
-                      className="relative w-full rounded-2xl overflow-hidden border border-[#E2E6EE] shadow-xs aspect-video"
+                      key={`${project.id}-gal-${idx}`}
+                      className={`relative w-full rounded-2xl overflow-hidden border border-[#E2E6EE] shadow-xs bg-[#F3F5F9] p-2 ${
+                        project.galleryImages.length === 1 ? 'sm:col-span-2 aspect-[16/10]' : 'aspect-[4/3]'
+                      }`}
                     >
                       <LazyImage
                         src={img}
-                        alt={`${project.title} gallery ${idx + 1}`}
+                        alt={`${project.title} gallery view ${idx + 1}`}
                         placeholderTone="light"
-                        className="w-full h-full object-cover"
+                        objectFit="contain"
+                        className="w-full h-full"
                       />
                     </div>
                   ))}

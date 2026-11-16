@@ -1,10 +1,11 @@
 import { useState, useEffect, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Send, Copy, Check, Sparkles, AlertCircle, Loader2, MessageCircle, Mail } from 'lucide-react';
+import { X, Send, Copy, Check, Sparkles, AlertCircle, Loader2, Mail } from 'lucide-react';
 import { UserSettings, CursorState } from '../types';
 import { submitToWeb3Forms, SERVICE_OPTIONS } from '../services/contactService';
 import { studioInfo, getWhatsAppUrl } from '../data/pixelionData';
 import CustomSelect from './CustomSelect';
+import WhatsAppIcon from './WhatsAppIcon';
 
 interface ContactDrawerProps {
   isOpen: boolean;
@@ -453,12 +454,12 @@ export default function ContactDrawer({
                   href={getDynamicWhatsAppUrl()}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center justify-between bg-emerald-50 border border-emerald-200 text-emerald-800 p-3 rounded-xl hover:bg-emerald-100 transition-colors"
+                  className="flex items-center justify-between bg-[#2C3D6C]/5 border border-[#2C3D6C]/15 text-[#2C3D6C] p-3 rounded-xl hover:bg-[#E31E24] hover:border-[#E31E24] hover:text-white transition-colors group"
                 >
                   <span className="font-sans-body font-bold text-xs flex items-center gap-1.5">
-                    <MessageCircle className="w-3.5 h-3.5 text-emerald-600" /> WhatsApp
+                    <WhatsAppIcon className="w-3.5 h-3.5 text-[#E31E24] group-hover:text-white transition-colors" /> WhatsApp
                   </span>
-                  <span className="text-[10px] font-mono text-emerald-700 font-bold">
+                  <span className="text-[10px] font-mono text-[#46516A] group-hover:text-white/90 font-bold transition-colors">
                     {studioInfo.phone}
                   </span>
                 </a>

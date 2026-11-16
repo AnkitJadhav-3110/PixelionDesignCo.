@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 import { CursorState } from '../types';
 import SEOHead from '../components/SEOHead';
-import LazyImage from '../components/LazyImage';
+import PageHero from '../components/PageHero';
 import PreFooterBanner from '../components/PreFooterBanner';
 
 interface CategoriesPageProps {
@@ -39,7 +39,7 @@ export default function CategoriesPage({ setCursorState }: CategoriesPageProps) 
       desc: 'Logo, brand identity, guidelines and brand strategy design.',
       filterGroup: 'Branding',
       icon: Compass,
-      link: '/work',
+      link: '/work?category=Branding',
     },
     {
       id: 'graphic-design',
@@ -47,7 +47,7 @@ export default function CategoriesPage({ setCursorState }: CategoriesPageProps) 
       desc: 'Creative visuals for print and digital communication.',
       filterGroup: 'Print Design',
       icon: Monitor,
-      link: '/work',
+      link: '/work?category=Print+Design',
     },
     {
       id: 'ui-ux',
@@ -55,7 +55,7 @@ export default function CategoriesPage({ setCursorState }: CategoriesPageProps) 
       desc: 'User-centered UI/UX design for web and mobile apps.',
       filterGroup: 'Web & UI/UX',
       icon: Smartphone,
-      link: '/work',
+      link: '/work?category=UI%2FUX+Design',
     },
     {
       id: 'social-media',
@@ -63,7 +63,7 @@ export default function CategoriesPage({ setCursorState }: CategoriesPageProps) 
       desc: 'Eye-catching posts and banners for social platforms.',
       filterGroup: 'Social Media',
       icon: Share2,
-      link: '/work',
+      link: '/work?category=Social+Media',
     },
     {
       id: 'print-design',
@@ -71,7 +71,7 @@ export default function CategoriesPage({ setCursorState }: CategoriesPageProps) 
       desc: 'Brochures, flyers, posters and other print materials.',
       filterGroup: 'Print Design',
       icon: Printer,
-      link: '/work',
+      link: '/work?category=Print+Design',
     },
     {
       id: 'digital-invitations',
@@ -79,7 +79,7 @@ export default function CategoriesPage({ setCursorState }: CategoriesPageProps) 
       desc: 'Elegant digital invites for weddings, events & parties.',
       filterGroup: 'Digital',
       icon: Mail,
-      link: '/work',
+      link: '/work?category=Digital+Invitations',
     },
     {
       id: 'packaging-design',
@@ -87,7 +87,7 @@ export default function CategoriesPage({ setCursorState }: CategoriesPageProps) 
       desc: 'Creative packaging that protects and promotes.',
       filterGroup: 'Packaging',
       icon: Package,
-      link: '/work',
+      link: '/work?category=Packaging',
     },
     {
       id: 'web-design',
@@ -95,7 +95,7 @@ export default function CategoriesPage({ setCursorState }: CategoriesPageProps) 
       desc: 'Modern, responsive websites that grow your business.',
       filterGroup: 'Web & UI/UX',
       icon: Code,
-      link: '/work',
+      link: '/work?category=Web+Design',
     },
     {
       id: 'mobile-app-design',
@@ -103,7 +103,7 @@ export default function CategoriesPage({ setCursorState }: CategoriesPageProps) 
       desc: 'Beautiful and functional mobile app interfaces.',
       filterGroup: 'Web & UI/UX',
       icon: Layout,
-      link: '/work',
+      link: '/work?category=UI%2FUX+Design',
     },
     {
       id: 'brochure-design',
@@ -111,7 +111,7 @@ export default function CategoriesPage({ setCursorState }: CategoriesPageProps) 
       desc: 'Informative brochures that communicate your value.',
       filterGroup: 'Print Design',
       icon: FileText,
-      link: '/work',
+      link: '/work?category=Print+Design',
     },
     {
       id: 'business-card-design',
@@ -119,7 +119,7 @@ export default function CategoriesPage({ setCursorState }: CategoriesPageProps) 
       desc: 'Professional business cards that leave a lasting impression.',
       filterGroup: 'Branding',
       icon: CreditCard,
-      link: '/work',
+      link: '/work?category=Branding',
     },
     {
       id: 'letterhead-design',
@@ -127,7 +127,7 @@ export default function CategoriesPage({ setCursorState }: CategoriesPageProps) 
       desc: 'Corporate letterheads that represent your brand.',
       filterGroup: 'Branding',
       icon: FileSpreadsheet,
-      link: '/work',
+      link: '/work?category=Branding',
     },
     {
       id: 'menu-design',
@@ -135,7 +135,7 @@ export default function CategoriesPage({ setCursorState }: CategoriesPageProps) 
       desc: 'Creative menu designs for restaurants and cafes.',
       filterGroup: 'Print Design',
       icon: Utensils,
-      link: '/work',
+      link: '/work?category=Print+Design',
     },
     {
       id: 'banner-design',
@@ -143,7 +143,7 @@ export default function CategoriesPage({ setCursorState }: CategoriesPageProps) 
       desc: 'High-impact banners for ads and promotions.',
       filterGroup: 'Others',
       icon: Flag,
-      link: '/work',
+      link: '/work?category=Print+Design',
     },
     {
       id: 'bill-book-design',
@@ -151,7 +151,7 @@ export default function CategoriesPage({ setCursorState }: CategoriesPageProps) 
       desc: 'Professional bill books for your business.',
       filterGroup: 'Others',
       icon: Receipt,
-      link: '/work',
+      link: '/work?category=Print+Design',
     },
   ];
 
@@ -172,68 +172,40 @@ export default function CategoriesPage({ setCursorState }: CategoriesPageProps) 
       : categories.filter((c) => c.filterGroup === activeFilter);
 
   return (
-    <div className="pt-24 sm:pt-28 pb-12">
+    <div className="pb-12">
       <SEOHead
         title="Design Categories | Pixelion Design Co."
         description="Explore our 15 creative design categories: Branding, Graphic Design, UI/UX, Print, Packaging, Invitations, Brochures, Stationery and more."
         canonicalPath="/categories"
       />
 
-      {/* 1. HERO SECTION (Matching 04-work-reference.jpeg) */}
-      <section className="relative px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto py-10 sm:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Column: Breadcrumb, Headline, Subtitle */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-7 space-y-6"
-          >
-            <div className="font-mono text-xs text-[#46516A] flex items-center gap-2">
-              <Link to="/" className="hover:text-[#E31E24]">Home</Link>
-              <span>&gt;</span>
-              <span className="text-[#E31E24] font-bold">Categories</span>
-            </div>
-
-            <h1 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-[#2C3D6C] tracking-tight leading-[1.08] break-words">
-              Explore Our <br />
-              <span className="text-[#E31E24]">Design Categories</span>
-            </h1>
-
-            <p className="font-sans-body text-sm sm:text-base lg:text-lg text-[#46516A] leading-relaxed max-w-xl">
-              Choose from a wide range of creative design categories crafted to elevate your brand and make a lasting impact.
-            </p>
-          </motion.div>
-
-          {/* Right Column: Visual Presentation */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="lg:col-span-5 flex justify-center lg:justify-end"
-          >
-            <div className="relative w-full max-w-lg bg-white border border-[#E2E6EE] rounded-3xl p-3 sm:p-4 shadow-xl overflow-hidden group">
-              <div className="relative aspect-[4/3] sm:aspect-[16/11] rounded-2xl overflow-hidden bg-[#2C3D6C]/5 border border-[#E2E6EE]/80">
-                <LazyImage
-                  src="/assets/concepts/concept-print-editorial-01.webp"
-                  alt="Pixelion Design Co. — Design Categories & Stationery Spread"
-                  priority={true}
-                  placeholderTone="light"
-                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
-                />
-                <div className="absolute bottom-3 inset-x-3 bg-[#2C3D6C]/90 backdrop-blur-md text-white px-4 py-2.5 rounded-xl border border-white/10 flex items-center justify-between">
-                  <span className="font-display font-extrabold text-xs">
-                    DESIGN PORTFOLIO
-                  </span>
-                  <span className="font-mono text-[9px] text-[#E31E24] bg-white px-2 py-0.5 rounded-md font-bold uppercase">
-                    15 CATEGORIES
-                  </span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* Cinematic Hero */}
+      <PageHero
+        gradientTheme="charcoal-crimson"
+        breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Categories' }]}
+        badge="15 SPECIALIZED DISCIPLINES"
+        title="Explore Our"
+        highlightWord="Design Categories"
+        subtitle="Crafted for impact, precision, and lasting recognition."
+        description="From brand strategy to tactile print and immersive digital products — explore our 15 tailored creative disciplines engineered to scale your market presence."
+        primaryCTA={{
+          label: 'Request Custom Category',
+          href: '/get-a-quote',
+          isPrimary: true,
+        }}
+        secondaryCTA={{
+          label: 'View Client Work',
+          href: '/work',
+        }}
+        supportingLogosTitle="FEATURED DISCIPLINES ACROSS CLIENT ENGAGEMENTS"
+        supportingLogos={[
+          { name: 'Branding & Identity', accent: '#E31E24' },
+          { name: 'Print & Packaging' },
+          { name: 'UI/UX & Digital' },
+          { name: 'Social Systems' },
+          { name: 'Editorial & Collateral' },
+        ]}
+      />
 
       {/* 2. FILTER TABS & 15-CATEGORY GRID (5x3) */}
       <section className="py-12 sm:py-20 border-t border-[#E2E6EE]/80 bg-[#FDFEFE]">

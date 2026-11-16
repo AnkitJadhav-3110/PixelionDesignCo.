@@ -8,7 +8,6 @@ import {
   User,
   Send,
   Lock,
-  MessageCircle,
   Clock,
   Sparkles,
   Headphones,
@@ -18,12 +17,14 @@ import {
   Shield,
   ArrowRight,
 } from 'lucide-react';
-import { studioInfo, getWhatsAppUrl } from '../data/pixelionData';
+import { studioInfo, getWhatsAppUrl, trustedBrands } from '../data/pixelionData';
 import { CursorState } from '../types';
 import SEOHead from '../components/SEOHead';
 import LazyImage from '../components/LazyImage';
+import PageHero from '../components/PageHero';
 import PreFooterBanner from '../components/PreFooterBanner';
 import CustomSelect from '../components/CustomSelect';
+import WhatsAppIcon from '../components/WhatsAppIcon';
 import { submitToWeb3Forms, SERVICE_OPTIONS } from '../services/contactService';
 
 interface GetAQuotePageProps {
@@ -121,96 +122,44 @@ export default function GetAQuotePage({ setCursorState }: GetAQuotePageProps) {
   };
 
   return (
-    <div className="pt-24 sm:pt-28 pb-12">
+    <div className="pb-12">
       <SEOHead
         title="Get a Quote | Pixelion Design Co."
         description="Request a project proposal or quote for your brand, graphic design, UI/UX, print, or packaging needs in Bharuch, Gujarat."
         canonicalPath="/get-a-quote"
       />
 
-      {/* 1. HERO SECTION (Matching additional-contact-form-reference.jpeg) */}
-      <section className="relative px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto py-10 sm:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Column: Eyebrow, Headline, Paragraph, 3 Badges */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-7 space-y-6"
-          >
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-xs font-bold text-[#E31E24] tracking-widest uppercase">
-                START YOUR PROJECT
-              </span>
-            </div>
-
-            <h1 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-[#2C3D6C] tracking-tight leading-[1.08] break-words">
-              Let's Create <br />
-              <span className="text-[#E31E24]">Something Amazing</span>
-            </h1>
-
-            <p className="font-sans-body text-sm sm:text-base lg:text-lg text-[#46516A] leading-relaxed max-w-xl">
-              Have a project in mind? Fill out the form below and tell us about your ideas. Our team will get back to you within 24 hours.
-            </p>
-
-            {/* 3 Value Badges */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-              <div className="flex items-start gap-3 bg-white border border-[#E2E6EE] rounded-xl p-3.5 shadow-2xs">
-                <div className="w-8 h-8 rounded-lg bg-[#E31E24]/10 text-[#E31E24] flex items-center justify-center shrink-0">
-                  <Clock className="w-4 h-4" />
-                </div>
-                <div>
-                  <h4 className="font-display font-bold text-xs text-[#2C3D6C]">Quick Response</h4>
-                  <p className="font-sans-body text-[10px] text-[#46516A]">We reply within 24 hours.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3 bg-white border border-[#E2E6EE] rounded-xl p-3.5 shadow-2xs">
-                <div className="w-8 h-8 rounded-lg bg-[#2C3D6C]/10 text-[#2C3D6C] flex items-center justify-center shrink-0">
-                  <Headphones className="w-4 h-4" />
-                </div>
-                <div>
-                  <h4 className="font-display font-bold text-xs text-[#2C3D6C]">Free Consultation</h4>
-                  <p className="font-sans-body text-[10px] text-[#46516A]">Talk to our experts for free.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3 bg-white border border-[#E2E6EE] rounded-xl p-3.5 shadow-2xs">
-                <div className="w-8 h-8 rounded-lg bg-[#E31E24]/10 text-[#E31E24] flex items-center justify-center shrink-0">
-                  <Sparkles className="w-4 h-4" />
-                </div>
-                <div>
-                  <h4 className="font-display font-bold text-xs text-[#2C3D6C]">100% Satisfaction</h4>
-                  <p className="font-sans-body text-[10px] text-[#46516A]">Your satisfaction is our priority.</p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right Column: Visual Presentation */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="lg:col-span-5 flex justify-center lg:justify-end"
-          >
-            <div className="relative w-full max-w-lg bg-white border border-[#E2E6EE] rounded-3xl p-3 sm:p-4 shadow-xl overflow-hidden group">
-              <div className="relative aspect-[4/3] sm:aspect-[16/11] rounded-2xl overflow-hidden bg-[#2C3D6C]/5 border border-[#E2E6EE]/80">
-                <LazyImage
-                  src="/assets/concepts/concept-uiux-mobile-01.webp"
-                  alt="Pixelion Design Co. Project Scoping"
-                  priority={true}
-                  placeholderTone="light"
-                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
-                />
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* Cinematic Hero */}
+      <PageHero
+        gradientTheme="midnight-steel"
+        backgroundImage="/assets/aistudio/image_19b0d8df.png"
+        breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Get a Quote' }]}
+        badge="RAPID ESTIMATION & SCOPING"
+        title="Start Your Project."
+        highlightWord="Get a Tailored Quote"
+        subtitle="Tell us about your brand vision, requirements, and timeline."
+        description="Receive a transparent, comprehensive proposal within 24 hours. No hidden fees, clear milestones, and direct communication with our senior design team."
+        primaryCTA={{
+          label: 'Request Quote Now',
+          href: '#quote-form',
+          isPrimary: true,
+        }}
+        secondaryCTA={{
+          label: 'WhatsApp Instant Chat',
+          href: getWhatsAppUrl('Hello! I would like to get a quote for a design project with Pixelion Design Co.'),
+          icon: <WhatsAppIcon className="w-4 h-4" />,
+        }}
+        supportingLogosTitle="TRANSPARENT CLIENT ADVANTAGES"
+        supportingLogos={[
+          { name: 'Fixed Scope Pricing', accent: '#E31E24' },
+          { name: '24-Hour Proposal Turnaround' },
+          { name: 'Full Commercial IP Rights' },
+          { name: 'Dedicated Lead Designer' },
+        ]}
+      />
 
       {/* 2. FORM & "WHAT HAPPENS NEXT?" TIMELINE (2 COLUMNS) */}
-      <section className="py-12 sm:py-20 border-t border-[#E2E6EE]/80 bg-[#FDFEFE]">
+      <section id="quote-form" className="py-12 sm:py-20 border-t border-[#E2E6EE]/80 bg-[#FDFEFE] scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             {/* Left Column: "Tell Us About Your Project" Form (7 cols) */}
@@ -431,18 +380,18 @@ export default function GetAQuotePage({ setCursorState }: GetAQuotePageProps) {
                 </div>
               </div>
 
-              {/* Direct WhatsApp Card (From additional-contact-layout-reference.jpeg) */}
+              {/* Direct WhatsApp Card */}
               <div className="bg-[#2C3D6C] text-white rounded-3xl p-6 sm:p-7 shadow-md space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center">
-                      <MessageCircle className="w-5 h-5 fill-white" />
+                    <div className="w-9 h-9 rounded-full bg-[#E31E24] text-white flex items-center justify-center shadow-sm">
+                      <WhatsAppIcon className="w-5 h-5 text-white" />
                     </div>
                     <span className="font-display font-bold text-sm text-white">
                       Chat on WhatsApp
                     </span>
                   </div>
-                  <span className="font-mono text-[9px] font-bold text-emerald-400 bg-white/10 px-2 py-0.5 rounded-full">
+                  <span className="font-mono text-[9px] font-bold text-[#FDFEFE] bg-white/15 px-2.5 py-0.5 rounded-full">
                     Instant Response
                   </span>
                 </div>
@@ -455,9 +404,9 @@ export default function GetAQuotePage({ setCursorState }: GetAQuotePageProps) {
                   href={getWhatsAppUrl("Hello Dhruvrajsinh! I'd like to get a quote for a new design project with Pixelion Design Co.")}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-full font-cta text-xs font-bold tracking-wider transition-colors flex items-center justify-center gap-2"
+                  className="w-full bg-[#E31E24] hover:bg-[#C81920] text-white py-3 rounded-full font-cta text-xs font-bold tracking-wider transition-colors flex items-center justify-center gap-2 shadow-sm"
                 >
-                  <MessageCircle className="w-4 h-4" />
+                  <WhatsAppIcon className="w-4 h-4" />
                   <span>Message on WhatsApp</span>
                 </a>
 
@@ -488,11 +437,16 @@ export default function GetAQuotePage({ setCursorState }: GetAQuotePageProps) {
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-6 sm:gap-10 opacity-70">
-              <span className="font-display font-black text-xs sm:text-sm text-[#2C3D6C]">AB NATURALS</span>
-              <span className="font-display font-black text-xs sm:text-sm text-[#2C3D6C]">FITFUEL</span>
-              <span className="font-display font-black text-xs sm:text-sm text-[#2C3D6C]">URBAN SPACE</span>
-              <span className="font-display font-black text-xs sm:text-sm text-[#2C3D6C]">SHINE BEAUTY</span>
+            <div className="flex flex-wrap items-center justify-center sm:justify-end gap-x-6 gap-y-3 opacity-85">
+              {trustedBrands.map((brand) => (
+                <span
+                  key={brand.name}
+                  className="inline-flex items-center gap-1.5 font-display font-black text-xs text-[#2C3D6C]"
+                >
+                  <span className="text-[#E31E24] text-[10px]">{brand.symbol}</span>
+                  <span>{brand.name}</span>
+                </span>
+              ))}
             </div>
           </div>
         </div>

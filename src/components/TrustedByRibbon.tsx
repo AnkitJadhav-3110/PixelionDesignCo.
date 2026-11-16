@@ -1,3 +1,5 @@
+import { trustedBrands } from '../data/pixelionData';
+
 interface TrustedByRibbonProps {
   title?: string;
   variant?: 'worldwide' | 'clients' | 'compact';
@@ -7,15 +9,6 @@ export default function TrustedByRibbon({
   title = 'TRUSTED BY 250+ BRANDS WORLDWIDE',
   variant = 'worldwide',
 }: TrustedByRibbonProps) {
-  const brands = [
-    { name: 'AVANTE', subtitle: 'LUXURY', symbol: '◆' },
-    { name: 'TechNova', subtitle: 'SOLUTIONS', symbol: '✦' },
-    { name: 'UrbanNest', subtitle: 'DESIGN STUDIO', symbol: '⬡' },
-    { name: 'GreenLeaf', subtitle: 'ORGANICS', symbol: '✿' },
-    { name: 'BrightPath', subtitle: 'EDUCATION', symbol: '▲' },
-    { name: 'MOMENTUM', subtitle: 'MARKETING', symbol: '●' },
-  ];
-
   return (
     <section className="py-8 sm:py-10 border-y border-[#E2E6EE]/80 bg-[#FDFEFE]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
@@ -23,8 +16,8 @@ export default function TrustedByRibbon({
           {title}
         </p>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8 items-center justify-items-center opacity-70 hover:opacity-95 transition-opacity">
-          {brands.map((brand) => (
+        <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-5 sm:gap-x-10 opacity-85 hover:opacity-100 transition-opacity">
+          {trustedBrands.map((brand) => (
             <div
               key={brand.name}
               className="flex items-center gap-2 group select-none text-[#2C3D6C] hover:text-[#E31E24] transition-colors"

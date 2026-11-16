@@ -9,6 +9,7 @@ export interface LazyImageProps extends React.ImgHTMLAttributes<HTMLImageElement
   priority?: boolean;
   blurColor?: string;
   placeholderTone?: 'light' | 'dark' | 'auto';
+  objectFit?: 'cover' | 'contain';
   referrerPolicy?: React.HTMLAttributeReferrerPolicy;
 }
 
@@ -27,6 +28,7 @@ export default function LazyImage({
   containerClassName = '',
   priority = false,
   placeholderTone = 'auto',
+  objectFit = 'cover',
   referrerPolicy = 'no-referrer',
   ...rest
 }: LazyImageProps) {
@@ -74,10 +76,13 @@ export default function LazyImage({
     };
   }, [priority]);
 
-  // Check if image is already cached by browser
+  // Reset error/loaded when src updates and check if image is already cached by browser
   useEffect(() => {
+    setHasError(false);
     if (isInView && imgRef.current?.complete && imgRef.current.naturalWidth > 0) {
       setIsLoaded(true);
+    } else if (isInView && !imgRef.current?.complete) {
+      setIsLoaded(false);
     }
   }, [isInView, src]);
 
@@ -95,6 +100,8 @@ export default function LazyImage({
     dark: 'bg-white/5 text-white/30',
     auto: 'bg-[#2C3D6C]/5 text-[#2C3D6C]/30',
   }[placeholderTone];
+
+  const fitClass = objectFit === 'contain' ? 'object-contain' : 'object-cover';
 
   return (
     <div
@@ -133,7 +140,7 @@ export default function LazyImage({
           referrerPolicy={referrerPolicy}
           onLoad={handleLoad}
           onError={handleError}
-          className={`w-full h-full object-cover transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          className={`w-full h-full ${fitClass} transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
             isLoaded
               ? 'opacity-100 filter blur-0 scale-100'
               : 'opacity-0 filter blur-xl scale-110'
