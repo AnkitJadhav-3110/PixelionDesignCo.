@@ -6,7 +6,7 @@ interface TrustedByRibbonProps {
 }
 
 export default function TrustedByRibbon({
-  title = 'TRUSTED BY 250+ BRANDS WORLDWIDE',
+  title = 'TRUSTED BY 50+ BRANDS WORLDWIDE',
   variant = 'worldwide',
 }: TrustedByRibbonProps) {
   return (

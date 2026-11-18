@@ -117,21 +117,21 @@ export default function Navigation({
             : 'bg-[#FDFEFE]/90 backdrop-blur-xs py-4 sm:py-5 border-b border-[#E2E6EE]/60'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 flex items-center justify-between gap-3 sm:gap-6">
+        <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-10 flex items-center justify-between gap-2 sm:gap-6">
           {/* Brand Logo & Wordmark */}
           <Link
             to="/"
-            className="group flex items-center gap-2.5 sm:gap-3 text-left focus:outline-hidden shrink-0"
+            className="group flex items-center gap-2 sm:gap-3 text-left focus:outline-hidden min-w-0"
             onMouseEnter={() => setCursorState({ variant: 'hover', text: 'HOME' })}
             onMouseLeave={() => setCursorState({ variant: 'default' })}
           >
             <img
               src="/logo.svg"
               alt="Pixelion Design Co."
-              className="w-8 h-8 sm:w-9 sm:h-9 object-contain shrink-0 group-hover:scale-105 transition-transform"
+              className="w-7 h-7 sm:w-9 sm:h-9 object-contain shrink-0 group-hover:scale-105 transition-transform"
             />
             <div className="flex flex-col min-w-0">
-              <span className="font-display font-black text-sm sm:text-lg lg:text-xl tracking-tight text-[#2C3D6C] group-hover:text-[#E31E24] transition-colors whitespace-nowrap">
+              <span className="font-display font-black text-xs min-[380px]:text-sm sm:text-lg lg:text-xl tracking-tight text-[#2C3D6C] group-hover:text-[#E31E24] transition-colors truncate">
                 PIXELION DESIGN CO.
               </span>
               <span className="font-mono text-[9px] sm:text-[10px] text-[#46516A]/70 tracking-wider hidden sm:block whitespace-nowrap">
@@ -316,7 +316,7 @@ export default function Navigation({
           </nav>
 
           {/* Right Action CTA & Mobile Trigger */}
-          <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             {/* Theme-Matched Official WhatsApp Quick Action */}
             <a
               href={studioInfo.whatsapp}
@@ -334,7 +334,7 @@ export default function Navigation({
             {/* Primary Get a Quote CTA Button */}
             <Link
               to={PRIMARY_CTA.href}
-              className="bg-[#E31E24] hover:bg-[#C81920] text-white px-4 sm:px-5 py-2.5 rounded-full font-cta text-xs font-bold tracking-wider transition-all duration-200 shadow-sm flex items-center gap-2 focus:outline-hidden whitespace-nowrap group active:scale-95"
+              className="bg-[#E31E24] hover:bg-[#C81920] text-white px-3 min-[380px]:px-4 sm:px-5 py-2 sm:py-2.5 rounded-full font-cta text-[11px] min-[380px]:text-xs font-bold tracking-wider transition-all duration-200 shadow-sm flex items-center gap-1.5 sm:gap-2 focus:outline-hidden whitespace-nowrap group active:scale-95"
               onMouseEnter={() => setCursorState({ variant: 'hover', text: 'QUOTE' })}
               onMouseLeave={() => setCursorState({ variant: 'default' })}
             >
@@ -346,11 +346,11 @@ export default function Navigation({
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden w-10 h-10 rounded-full bg-[#2C3D6C] text-[#FDFEFE] hover:bg-[#E31E24] transition-colors focus:outline-hidden flex items-center justify-center shrink-0 shadow-xs"
+              className="lg:hidden w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#2C3D6C] text-[#FDFEFE] hover:bg-[#E31E24] transition-colors focus:outline-hidden flex items-center justify-center shrink-0 shadow-xs"
               aria-label={mobileMenuOpen ? 'Close navigation drawer' : 'Open navigation drawer'}
               aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-white" />}
+              {mobileMenuOpen ? <X className="w-4 h-4 sm:w-5 sm:h-5 text-white" /> : <Menu className="w-4 h-4 sm:w-5 sm:h-5 text-white" />}
             </button>
           </div>
         </div>
@@ -412,12 +412,6 @@ export default function Navigation({
                 {MAIN_NAVIGATION.map((item) => {
                   const hasDropdown = Boolean(item.dropdown);
                   const isExpanded = expandedMobileAccordions[item.id] || false;
-                  const isCurrentActive =
-                    item.href === '/'
-                      ? location.pathname === '/'
-                      : location.pathname.startsWith(item.href) ||
-                        (item.id === 'services' && location.pathname === '/categories') ||
-                        (item.id === 'work' && location.pathname.startsWith('/case-studies'));
 
                   if (!hasDropdown) {
                     return (
@@ -425,11 +419,7 @@ export default function Navigation({
                         key={item.id}
                         to={item.href}
                         onClick={() => setMobileMenuOpen(false)}
-                        className={`flex items-center justify-between px-3.5 py-3 rounded-xl font-display font-bold text-base transition-colors ${
-                          isCurrentActive
-                            ? 'text-[#E31E24] bg-[#E31E24]/10'
-                            : 'text-[#2C3D6C] hover:bg-[#F7F9FC]'
-                        }`}
+                        className="flex items-center justify-between px-3.5 py-3 rounded-xl font-display font-bold text-base text-[#2C3D6C] hover:bg-[#F7F9FC] transition-colors"
                       >
                         <span>{item.label}</span>
                         <ArrowRight className="w-4 h-4 opacity-40" />
@@ -440,16 +430,16 @@ export default function Navigation({
                   return (
                     <div
                       key={item.id}
-                      className="border border-[#E2E6EE]/80 rounded-2xl overflow-hidden bg-white shadow-2xs"
+                      className={`rounded-xl overflow-hidden transition-colors ${
+                        isExpanded ? 'border border-[#E2E6EE]/80 bg-white' : ''
+                      }`}
                     >
                       {/* Accordion Header Row */}
-                      <div className="flex items-center justify-between p-1">
+                      <div className="flex items-center justify-between hover:bg-[#F7F9FC] rounded-xl transition-colors">
                         <Link
                           to={item.href}
                           onClick={() => setMobileMenuOpen(false)}
-                          className={`flex-1 px-3 py-2.5 font-display font-bold text-base transition-colors ${
-                            isCurrentActive ? 'text-[#E31E24]' : 'text-[#2C3D6C]'
-                          }`}
+                          className="flex-1 px-3.5 py-3 font-display font-bold text-base text-[#2C3D6C] transition-colors"
                         >
                           {item.label}
                         </Link>
@@ -457,10 +447,10 @@ export default function Navigation({
                         <button
                           type="button"
                           onClick={() => toggleMobileAccordion(item.id)}
-                          className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors focus:outline-hidden ${
+                          className={`w-10 h-10 mr-1 rounded-xl flex items-center justify-center transition-colors focus:outline-hidden ${
                             isExpanded
                               ? 'bg-[#E31E24]/10 text-[#E31E24]'
-                              : 'bg-[#2C3D6C]/5 text-[#2C3D6C]'
+                              : 'text-[#2C3D6C]/60 hover:text-[#2C3D6C]'
                           }`}
                           aria-label={isExpanded ? `Collapse ${item.label} menu` : `Expand ${item.label} menu`}
                           aria-expanded={isExpanded}

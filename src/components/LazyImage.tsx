@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { ImageOff } from 'lucide-react';
 
 export interface LazyImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -15,11 +15,11 @@ export interface LazyImageProps extends React.ImgHTMLAttributes<HTMLImageElement
 
 /**
  * LazyImage Component:
- * - Intersection Observer-based lazy loading with 250px rootMargin prefetch
- * - CSS progressive blur-up placeholder effect upon load
- * - Cached image instant-display handling to avoid flash
- * - High-fidelity fallback on network failures
- * - Preserves responsive aspect ratios and hover zoom effects
+ * - Always renders <img> with native lazy loading + decoding="async" so mobile
+ *   and slow networks never get stuck on missed IntersectionObserver thresholds.
+ * - Synchronous cached-image check on ref mount & src change prevents infinite
+ *   shimmer skeletons or blank cards at the bottom of long portfolio grids.
+ * - Graceful error fallback only when an image genuinely fails to load.
  */
 export default function LazyImage({
   src,
@@ -32,61 +32,36 @@ export default function LazyImage({
   referrerPolicy = 'no-referrer',
   ...rest
 }: LazyImageProps) {
-  const containerRef = useRef<HTMLDivElement | null>(null);
   const imgRef = useRef<HTMLImageElement | null>(null);
-  const [isInView, setIsInView] = useState<boolean>(priority);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
 
-  // Intersection Observer for viewport detection
-  useEffect(() => {
-    if (priority) {
-      setIsInView(true);
-      return;
-    }
-
-    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
-      setIsInView(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsInView(true);
-            if (containerRef.current) {
-              observer.unobserve(containerRef.current);
-            }
-          }
-        });
-      },
-      {
-        rootMargin: '250px 0px', // Begin loading 250px before entering viewport for seamless UX
-        threshold: 0.01,
+  const attachImgRef = useCallback(
+    (node: HTMLImageElement | null) => {
+      imgRef.current = node;
+      if (node && node.complete) {
+        if (node.naturalWidth > 0) {
+          setIsLoaded(true);
+          setHasError(false);
+        }
       }
-    );
+    },
+    []
+  );
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [priority]);
-
-  // Reset error/loaded when src updates and check if image is already cached by browser
+  // Reset states cleanly when src updates and check cache immediately
   useEffect(() => {
     setHasError(false);
-    if (isInView && imgRef.current?.complete && imgRef.current.naturalWidth > 0) {
+    const node = imgRef.current;
+    if (node && node.complete && node.naturalWidth > 0) {
       setIsLoaded(true);
-    } else if (isInView && !imgRef.current?.complete) {
+    } else {
       setIsLoaded(false);
     }
-  }, [isInView, src]);
+  }, [src]);
 
   const handleLoad = () => {
+    setHasError(false);
     setIsLoaded(true);
   };
 
@@ -96,33 +71,28 @@ export default function LazyImage({
   };
 
   const toneClasses = {
-    light: 'bg-[#E2E6EE]/50 text-[#2C3D6C]/30',
+    light: 'bg-[#F3F5F9] text-[#2C3D6C]/30',
     dark: 'bg-white/5 text-white/30',
-    auto: 'bg-[#2C3D6C]/5 text-[#2C3D6C]/30',
+    auto: 'bg-[#F3F5F9] text-[#2C3D6C]/30',
   }[placeholderTone];
 
   const fitClass = objectFit === 'contain' ? 'object-contain' : 'object-cover';
 
   return (
     <div
-      ref={containerRef}
-      className={`relative w-full h-full overflow-hidden ${toneClasses} ${containerClassName}`}
+      className={`relative w-full h-full overflow-hidden flex items-center justify-center ${toneClasses} ${containerClassName}`}
     >
-      {/* CSS Blur-Up Placeholder Skeleton */}
+      {/* Subtle Shimmer Placeholder while fetching */}
       {!isLoaded && !hasError && (
-        <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none z-10">
-          {/* Ambient blurred backdrop aura */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#E31E24]/10 via-[#2C3D6C]/5 to-transparent blur-md" />
-          
-          {/* Animated subtle shimmer wave */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-[shimmer_2s_infinite]" />
-          
-          {/* Subtle center brand glow */}
-          <div className="w-16 h-16 rounded-full bg-[#E31E24]/10 blur-xl" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none z-10"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/35 to-transparent -translate-x-full animate-[shimmer_1.6s_infinite]" />
         </div>
       )}
 
-      {/* Fallback state if image URL fails */}
+      {/* Fallback state if image URL genuinely fails */}
       {hasError ? (
         <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center bg-[#FDFEFE]">
           <ImageOff className="w-8 h-8 text-[#E31E24]/60 mb-2" />
@@ -130,26 +100,22 @@ export default function LazyImage({
             {alt || 'Visual preview'}
           </span>
         </div>
-      ) : isInView ? (
+      ) : (
         <img
-          ref={imgRef}
+          ref={attachImgRef}
           src={src}
           alt={alt}
           loading={priority ? 'eager' : 'lazy'}
           decoding="async"
+          fetchPriority={priority ? 'high' : 'auto'}
           referrerPolicy={referrerPolicy}
           onLoad={handleLoad}
           onError={handleError}
-          className={`w-full h-full ${fitClass} transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            isLoaded
-              ? 'opacity-100 filter blur-0 scale-100'
-              : 'opacity-0 filter blur-xl scale-110'
+          className={`w-full h-full ${fitClass} object-center transition-opacity duration-300 ease-out ${
+            isLoaded ? 'opacity-100' : 'opacity-0'
           } ${className}`}
           {...rest}
         />
-      ) : (
-        /* Empty placeholder prior to intersection observer trigger */
-        <div className="w-full h-full bg-transparent" />
       )}
     </div>
   );

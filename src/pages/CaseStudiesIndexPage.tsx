@@ -59,10 +59,11 @@ export default function CaseStudiesIndexPage({ setCursorState, onOpenContact }: 
             viewport={{ once: true }}
             className="bg-white border border-[#E2E6EE] rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 hover:border-[#E31E24] transition-all duration-300 shadow-xs group"
           >
-            <div className="lg:col-span-6 relative aspect-[16/10] lg:aspect-auto overflow-hidden bg-[#F3F5F9] p-2">
+            <div className="lg:col-span-6 relative aspect-[4/3] lg:aspect-auto min-h-[240px] sm:min-h-[300px] lg:min-h-[360px] overflow-hidden bg-[#F3F5F9] p-3">
               <LazyImage
                 src={cs.heroImage}
                 alt={cs.title}
+                priority={idx < 2}
                 placeholderTone="light"
                 objectFit="contain"
                 className="group-hover:scale-[1.03] transition-transform duration-700"

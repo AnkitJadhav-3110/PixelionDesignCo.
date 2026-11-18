@@ -28,7 +28,8 @@ interface ShowcaseItem {
   category: string;
   filterGroups: string[];
   image: string;
-  objectFit?: 'cover' | 'contain';
+  objectFit: 'cover' | 'contain';
+  orientation: 'portrait' | 'square' | 'landscape';
   featuredOrder: number;
   desc: string;
   galleryCount?: number;
@@ -79,6 +80,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       filterGroups: ['Branding', 'Print Design'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.45.02_PM_cf2a78a4.jpeg',
       objectFit: 'contain',
+      orientation: 'portrait',
       featuredOrder: 1,
       galleryCount: 5,
       desc: 'Master brand sheet, business cards, corporate letterhead, mailing envelopes & merchandise.',
@@ -89,7 +91,8 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       category: 'Branding & Packaging',
       filterGroups: ['Branding', 'Packaging'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.37_PM__1__f7955d9d.jpeg',
-      objectFit: 'cover',
+      objectFit: 'contain',
+      orientation: 'square',
       featuredOrder: 2,
       desc: 'Bespoke gold & matte obsidian monogram, perfume flacon, rigid box, blade sign & gift bag.',
     },
@@ -99,7 +102,8 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       category: 'UI/UX Design',
       filterGroups: ['UI/UX Design'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.35_PM__1__c40d6da4.jpeg',
-      objectFit: 'cover',
+      objectFit: 'contain',
+      orientation: 'landscape',
       featuredOrder: 3,
       desc: 'UPI mobile wallet, scan-to-pay QR flows, and integrated daily life expense analytics.',
     },
@@ -109,7 +113,8 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       category: 'UI/UX & Web Design',
       filterGroups: ['UI/UX Design', 'Web Design'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.36_PM__1__5a3335bb.jpeg',
-      objectFit: 'cover',
+      objectFit: 'contain',
+      orientation: 'landscape',
       featuredOrder: 4,
       desc: 'Cross-device mobile dark mode & minimal desktop conversational AI workspace exploration.',
     },
@@ -119,7 +124,8 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       category: 'UI/UX & Web Design',
       filterGroups: ['UI/UX Design', 'Web Design'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.35_PM_6b406127.jpeg',
-      objectFit: 'cover',
+      objectFit: 'contain',
+      orientation: 'landscape',
       featuredOrder: 5,
       desc: '5-stage UX methodology, specialist booking web portal & synchronized mobile screens.',
     },
@@ -129,7 +135,8 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       category: 'Branding & Packaging',
       filterGroups: ['Branding', 'Packaging'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.36_PM_6836c314.jpeg',
-      objectFit: 'cover',
+      objectFit: 'contain',
+      orientation: 'landscape',
       featuredOrder: 6,
       galleryCount: 2,
       desc: 'Minimalist citrus slice logo mark, cold-pressed bottle label & dual-tone stationery.',
@@ -141,6 +148,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       filterGroups: ['Packaging', 'Print Design'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.21_PM__2__e7360007.jpeg',
       objectFit: 'contain',
+      orientation: 'portrait',
       featuredOrder: 7,
       desc: 'Retail 100gm FMCG spice carton packaging with bilingual callouts & side specs panel.',
     },
@@ -151,6 +159,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       filterGroups: ['Digital Invitations', 'Print Design'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.57.38_PM_b27bdadd.jpeg',
       objectFit: 'contain',
+      orientation: 'portrait',
       featuredOrder: 8,
       galleryCount: 6,
       desc: 'Wedding, Engagement, Vastupujan, Seemant, Mundan & Birthday invitation stationery showcase.',
@@ -162,6 +171,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       filterGroups: ['Print Design'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.21_PM__1__a93080cc.jpeg',
       objectFit: 'cover',
+      orientation: 'landscape',
       featuredOrder: 9,
       galleryCount: 2,
       desc: 'Two-sided table-tent food menu design with dish medallions and clear price columns.',
@@ -173,6 +183,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       filterGroups: ['Social Media', 'Print Design'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.57.01_PM_7638da18.jpeg',
       objectFit: 'contain',
+      orientation: 'portrait',
       featuredOrder: 10,
       desc: 'Commercial cold-coffee splash composite campaign poster for social & cafe walls.',
     },
@@ -183,6 +194,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       filterGroups: ['Print Design', 'Social Media'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.57.00_PM__1__c09efeee.jpeg',
       objectFit: 'contain',
+      orientation: 'portrait',
       featuredOrder: 11,
       desc: 'Editorial ivory and champagne mall display poster for seasonal apparel promotions.',
     },
@@ -193,6 +205,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       filterGroups: ['Print Design'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_9.25.50_PM__1__cb29287d.jpeg',
       objectFit: 'cover',
+      orientation: 'landscape',
       featuredOrder: 12,
       galleryCount: 5,
       desc: 'NMMSS Merit, Kala Mahakumbh, Khel Mahakumbh & Viksit Bharat award certificates.',
@@ -204,6 +217,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       filterGroups: ['Branding', 'Print Design'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_9.16.06_PM__1__69df060f.jpeg',
       objectFit: 'cover',
+      orientation: 'landscape',
       featuredOrder: 13,
       galleryCount: 3,
       desc: 'Boutique facade fascia signage, promotional poster & Gujarati visiting card.',
@@ -215,6 +229,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       filterGroups: ['Print Design'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.43.51_PM_0e19fe53.jpeg',
       objectFit: 'cover',
+      orientation: 'landscape',
       featuredOrder: 14,
       desc: 'Structured GST tax invoice bill book for logistics & earthmoving contractor in Dahej.',
     },
@@ -225,6 +240,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       filterGroups: ['Branding', 'Print Design'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.03_PM_a4e560f4.jpeg',
       objectFit: 'cover',
+      orientation: 'landscape',
       featuredOrder: 15,
       desc: 'Blush-pink luxury salon invoice book paired with matte black & gold visiting cards.',
     },
@@ -234,7 +250,8 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       category: 'UI/UX & Web Design',
       filterGroups: ['UI/UX Design', 'Web Design'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.37_PM_90866565.jpeg',
-      objectFit: 'cover',
+      objectFit: 'contain',
+      orientation: 'landscape',
       featuredOrder: 16,
       desc: 'Inclusive UX standards focused on WCAG visual clarity, ease, and reachability.',
     },
@@ -245,6 +262,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       filterGroups: ['Digital Invitations'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.27_PM_5293278e.jpeg',
       objectFit: 'contain',
+      orientation: 'portrait',
       featuredOrder: 17,
       galleryCount: 5,
       desc: 'Floral watercolor wedding invites, burgundy Sagai Vidhi & custom wedding envelopes.',
@@ -256,6 +274,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       filterGroups: ['Digital Invitations'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.33_PM__1__5c0469f6.jpeg',
       objectFit: 'contain',
+      orientation: 'portrait',
       featuredOrder: 18,
       galleryCount: 7,
       desc: 'Gujarati Vastupujan, Mundan Sanskar Vidhi, Guru Purnima & cultural ceremony invitations.',
@@ -267,6 +286,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       filterGroups: ['Digital Invitations'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.26_PM__2__91be272f.jpeg',
       objectFit: 'contain',
+      orientation: 'portrait',
       featuredOrder: 19,
       galleryCount: 2,
       desc: 'First Birthday milestone card & traditional Gujarati Seemant Sanskar baby shower suite.',
@@ -278,6 +298,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       filterGroups: ['Branding'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.26_PM__1__b132eda8.jpeg',
       objectFit: 'cover',
+      orientation: 'landscape',
       featuredOrder: 20,
       desc: 'Wine red & gold luxury business card with integrated WhatsApp catalog QR code.',
     },
@@ -288,6 +309,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       filterGroups: ['Branding'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.25_PM__1__dc030cb6.jpeg',
       objectFit: 'cover',
+      orientation: 'landscape',
       featuredOrder: 21,
       desc: 'Double-sided corporate card with agricultural machinery lineup for Bharuch distributor.',
     },
@@ -298,6 +320,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       filterGroups: ['Branding', 'Print Design'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.23_PM__1__96c1caef.jpeg',
       objectFit: 'contain',
+      orientation: 'portrait',
       featuredOrder: 22,
       galleryCount: 4,
       desc: 'Crafinex minimalist letterhead, Sahajanand Insurance & institutional stationery suite.',
@@ -309,6 +332,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       filterGroups: ['Print Design', 'Social Media'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.57.00_PM_aa188531.jpeg',
       objectFit: 'contain',
+      orientation: 'portrait',
       featuredOrder: 23,
       desc: 'Roll-up retail standee showcase with multi-photo gifting grid for Zadeshwar studio.',
     },
@@ -319,6 +343,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       filterGroups: ['Print Design', 'Social Media'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.56.59_PM_9cda0e57.jpeg',
       objectFit: 'cover',
+      orientation: 'landscape',
       featuredOrder: 24,
       desc: 'Freestanding large-format exhibition backdrop with curved interior showcase.',
     },
@@ -329,6 +354,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       filterGroups: ['Print Design', 'Social Media'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_9.25.50_PM_28ec2ecb.jpeg',
       objectFit: 'cover',
+      orientation: 'landscape',
       featuredOrder: 25,
       galleryCount: 2,
       desc: 'High-impact street hoarding banner & business card for Kurta House in Zadeshwar.',
@@ -340,6 +366,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       filterGroups: ['Print Design'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.02_PM__1__49961833.jpeg',
       objectFit: 'cover',
+      orientation: 'landscape',
       featuredOrder: 26,
       galleryCount: 2,
       desc: 'Ganit Vigyan Pradarshan & Kala Mahakumbh cultural auditorium backdrop banners.',
@@ -351,6 +378,7 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
       filterGroups: ['Print Design', 'Social Media'],
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_9.08.45_PM_3091c4a0.jpeg',
       objectFit: 'cover',
+      orientation: 'landscape',
       featuredOrder: 27,
       desc: 'Illuminated bilingual snack menu wall display for cafe and street-food counters.',
     },
@@ -458,55 +486,72 @@ export default function WorkPage({ setCursorState, onOpenContact }: WorkPageProp
             </div>
           </div>
 
-          {/* Responsive Portfolio Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7">
-            {filteredProjects.map((proj) => (
-              <div
-                key={proj.id}
-                onClick={() => {
-                  const match = pixelionProjects.find((p) => p.id === proj.id) || pixelionProjects[0];
-                  setSelectedProject(match);
-                }}
-                className="bg-white border border-[#E2E6EE] hover:border-[#E31E24] rounded-2xl overflow-hidden group cursor-pointer transition-all duration-300 hover:shadow-lg flex flex-col justify-between"
-              >
-                <div
-                  className={`relative aspect-[4/3] overflow-hidden ${
-                    proj.objectFit === 'contain' ? 'bg-[#F3F5F9] p-2' : 'bg-[#2C3D6C]/5'
-                  }`}
-                >
-                  <LazyImage
-                    src={proj.image}
-                    alt={proj.title}
-                    placeholderTone="light"
-                    objectFit={proj.objectFit || 'cover'}
-                    className="w-full h-full group-hover:scale-105 transition-transform duration-700"
-                  />
-                  {proj.galleryCount && proj.galleryCount > 1 && (
-                    <div className="absolute bottom-2.5 left-2.5 bg-[#2C3D6C]/90 text-white px-2.5 py-1 rounded-full font-mono text-[10px] font-bold flex items-center gap-1 shadow-xs">
-                      <Images className="w-3 h-3 text-[#E31E24]" />
-                      <span>{proj.galleryCount} Views</span>
-                    </div>
-                  )}
-                  <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center text-[#E31E24] opacity-0 group-hover:opacity-100 transition-opacity shadow-xs">
-                    <ArrowUpRight className="w-4 h-4" />
-                  </div>
-                </div>
+          {/* Responsive Portfolio Grid: 1 col mobile (320-767px), 2 col tablet (768-1023px), 3 col desktop (1024px+) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 lg:gap-8">
+            {filteredProjects.map((proj, idx) => {
+              const aspectClass =
+                proj.orientation === 'portrait'
+                  ? 'aspect-[4/5] md:aspect-[4/3]'
+                  : proj.orientation === 'square'
+                  ? 'aspect-square md:aspect-[4/3]'
+                  : 'aspect-[4/3]';
 
-                <div className="p-5 flex items-center justify-between gap-2 border-t border-[#E2E6EE]/80">
-                  <div className="min-w-0">
-                    <h3 className="font-display font-extrabold text-sm text-[#2C3D6C] group-hover:text-[#E31E24] transition-colors truncate">
-                      {proj.title}
-                    </h3>
-                    <span className="font-mono text-[10px] text-[#46516A]/80 uppercase block truncate mt-0.5">
-                      {proj.category}
-                    </span>
+              return (
+                <article
+                  key={proj.id}
+                  onClick={() => {
+                    const match = pixelionProjects.find((p) => p.id === proj.id) || pixelionProjects[0];
+                    setSelectedProject(match);
+                  }}
+                  className="bg-white border border-[#E2E6EE] hover:border-[#E31E24] rounded-2xl overflow-hidden group cursor-pointer transition-all duration-300 shadow-xs hover:shadow-xl flex flex-col justify-between"
+                >
+                  <div
+                    className={`relative w-full ${aspectClass} overflow-hidden flex items-center justify-center ${
+                      proj.objectFit === 'contain' ? 'bg-[#F3F5F9] p-2.5 sm:p-3' : 'bg-[#2C3D6C]/5'
+                    }`}
+                  >
+                    <LazyImage
+                      src={proj.image}
+                      alt={proj.title}
+                      priority={idx < 3}
+                      placeholderTone="light"
+                      objectFit={proj.objectFit}
+                      className={
+                        proj.objectFit === 'contain'
+                          ? 'transition-transform duration-500 group-hover:scale-[1.03]'
+                          : 'transition-transform duration-700 group-hover:scale-105'
+                      }
+                    />
                   </div>
-                  <span className="text-[#E31E24] font-bold text-xs group-hover:translate-x-0.5 transition-transform shrink-0">
-                    →
-                  </span>
-                </div>
-              </div>
-            ))}
+
+                  <div className="p-4 sm:p-5 flex items-center justify-between gap-3 border-t border-[#E2E6EE]/80 bg-white">
+                    <div className="min-w-0 flex-1">
+                      <h3 className="font-display font-extrabold text-sm sm:text-base text-[#2C3D6C] group-hover:text-[#E31E24] transition-colors truncate">
+                        {proj.title}
+                      </h3>
+                      <span className="font-mono text-[10px] sm:text-[11px] text-[#46516A] uppercase block truncate mt-0.5">
+                        {proj.category}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-2 shrink-0">
+                      {proj.galleryCount && proj.galleryCount > 1 && (
+                        <span className="inline-flex items-center gap-1 bg-[#2C3D6C]/8 text-[#2C3D6C] px-2.5 py-1 rounded-full font-mono text-[10px] font-bold border border-[#E2E6EE]">
+                          <Images className="w-3 h-3 text-[#E31E24]" />
+                          <span>{proj.galleryCount} Views</span>
+                        </span>
+                      )}
+                      <span
+                        aria-hidden="true"
+                        className="w-8 h-8 rounded-full border border-[#E2E6EE] bg-[#F7F9FC] text-[#2C3D6C] group-hover:bg-[#E31E24] group-hover:text-white group-hover:border-[#E31E24] flex items-center justify-center transition-colors"
+                      >
+                        <ArrowUpRight className="w-4 h-4" />
+                      </span>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>

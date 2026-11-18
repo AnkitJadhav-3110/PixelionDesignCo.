@@ -247,38 +247,61 @@ export default function ServicesPage({ setCursorState, onOpenContact }: Services
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {showcaseProjects.map((proj) => (
-              <div
-                key={proj.id}
-                onClick={() => setSelectedProject(proj)}
-                className="bg-white border border-[#E2E6EE] hover:border-[#E31E24] rounded-2xl overflow-hidden group cursor-pointer transition-all duration-300 hover:shadow-lg flex flex-col justify-between"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden bg-[#F3F5F9] p-1.5">
-                  <LazyImage
-                    src={proj.heroImage}
-                    alt={proj.title}
-                    placeholderTone="light"
-                    objectFit={proj.aspect === '3:4' ? 'contain' : 'cover'}
-                    className="w-full h-full group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center text-[#E31E24] opacity-0 group-hover:opacity-100 transition-opacity shadow-xs">
-                    <ArrowUpRight className="w-4 h-4" />
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 sm:gap-7">
+            {showcaseProjects.map((proj) => {
+              const useContain =
+                proj.aspect === '3:4' ||
+                proj.aspect === '1:1' ||
+                proj.aspect === '16:9';
+              const aspectClass =
+                proj.aspect === '3:4'
+                  ? 'aspect-[4/5] md:aspect-[4/3]'
+                  : proj.aspect === '1:1'
+                  ? 'aspect-square md:aspect-[4/3]'
+                  : 'aspect-[4/3]';
+
+              return (
+                <article
+                  key={proj.id}
+                  onClick={() => setSelectedProject(proj)}
+                  className="bg-white border border-[#E2E6EE] hover:border-[#E31E24] rounded-2xl overflow-hidden group cursor-pointer transition-all duration-300 shadow-xs hover:shadow-lg flex flex-col justify-between"
+                >
+                  <div
+                    className={`relative w-full ${aspectClass} overflow-hidden flex items-center justify-center ${
+                      useContain ? 'bg-[#F3F5F9] p-2.5' : 'bg-[#2C3D6C]/5'
+                    }`}
+                  >
+                    <LazyImage
+                      src={proj.heroImage}
+                      alt={proj.title}
+                      placeholderTone="light"
+                      objectFit={useContain ? 'contain' : 'cover'}
+                      className={
+                        useContain
+                          ? 'transition-transform duration-500 group-hover:scale-[1.03]'
+                          : 'transition-transform duration-700 group-hover:scale-105'
+                      }
+                    />
                   </div>
-                </div>
-                <div className="p-4 flex items-center justify-between gap-2 border-t border-[#E2E6EE]/80">
-                  <div className="min-w-0">
-                    <h3 className="font-display font-extrabold text-sm text-[#2C3D6C] group-hover:text-[#E31E24] transition-colors truncate">
-                      {proj.title}
-                    </h3>
-                    <span className="font-mono text-[10px] text-[#46516A] uppercase block truncate mt-0.5">
-                      {proj.category}
+                  <div className="p-4 sm:p-5 flex items-center justify-between gap-2 border-t border-[#E2E6EE]/80 bg-white">
+                    <div className="min-w-0">
+                      <h3 className="font-display font-extrabold text-sm text-[#2C3D6C] group-hover:text-[#E31E24] transition-colors truncate">
+                        {proj.title}
+                      </h3>
+                      <span className="font-mono text-[10px] text-[#46516A] uppercase block truncate mt-0.5">
+                        {proj.category}
+                      </span>
+                    </div>
+                    <span
+                      aria-hidden="true"
+                      className="w-8 h-8 rounded-full border border-[#E2E6EE] bg-[#F7F9FC] text-[#2C3D6C] group-hover:bg-[#E31E24] group-hover:text-white group-hover:border-[#E31E24] flex items-center justify-center transition-colors shrink-0"
+                    >
+                      <ArrowUpRight className="w-4 h-4" />
                     </span>
                   </div>
-                  <span className="text-[#E31E24] font-bold text-xs shrink-0">→</span>
-                </div>
-              </div>
-            ))}
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>

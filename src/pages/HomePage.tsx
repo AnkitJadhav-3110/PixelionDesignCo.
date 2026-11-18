@@ -42,13 +42,23 @@ export default function HomePage({ setCursorState, onOpenContact }: HomePageProp
   const [activeFilter, setActiveFilter] = useState<string>('All');
 
   // Featured real Pixelion projects for Homepage Recent Projects row
-  const recentProjects = [
+  const recentProjects: Array<{
+    id: string;
+    title: string;
+    category: string;
+    image: string;
+    tag: string;
+    objectFit: 'cover' | 'contain';
+    orientation: 'portrait' | 'square' | 'landscape';
+  }> = [
     {
       id: 'pixelion-brand-identity',
       title: 'Pixelion Brand Identity',
       category: 'Branding',
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.23_PM_1a129a33.jpeg',
       tag: 'Branding',
+      objectFit: 'cover',
+      orientation: 'landscape',
     },
     {
       id: 'ab-perfumes',
@@ -56,6 +66,8 @@ export default function HomePage({ setCursorState, onOpenContact }: HomePageProp
       category: 'Packaging',
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.37_PM__1__f7955d9d.jpeg',
       tag: 'Packaging',
+      objectFit: 'contain',
+      orientation: 'square',
     },
     {
       id: 'snack-wagon-menu',
@@ -63,6 +75,8 @@ export default function HomePage({ setCursorState, onOpenContact }: HomePageProp
       category: 'Print Design',
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.21_PM__1__a93080cc.jpeg',
       tag: 'Print Design',
+      objectFit: 'cover',
+      orientation: 'landscape',
     },
     {
       id: 'easypay',
@@ -70,6 +84,8 @@ export default function HomePage({ setCursorState, onOpenContact }: HomePageProp
       category: 'UI/UX Design',
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.35_PM__1__c40d6da4.jpeg',
       tag: 'UI/UX',
+      objectFit: 'contain',
+      orientation: 'landscape',
     },
     {
       id: 'gemini-redesign',
@@ -77,6 +93,8 @@ export default function HomePage({ setCursorState, onOpenContact }: HomePageProp
       category: 'Web Design & UI/UX',
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.36_PM__1__5a3335bb.jpeg',
       tag: 'Web Design UI/UX',
+      objectFit: 'contain',
+      orientation: 'landscape',
     },
     {
       id: 'starbucks-poster',
@@ -84,6 +102,8 @@ export default function HomePage({ setCursorState, onOpenContact }: HomePageProp
       category: 'Social Media',
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.57.01_PM_7638da18.jpeg',
       tag: 'Social Media Print Design',
+      objectFit: 'contain',
+      orientation: 'portrait',
     },
     {
       id: 'freshsip-branding',
@@ -91,6 +111,8 @@ export default function HomePage({ setCursorState, onOpenContact }: HomePageProp
       category: 'Branding & Packaging',
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.36_PM_6836c314.jpeg',
       tag: 'Branding Packaging',
+      objectFit: 'contain',
+      orientation: 'landscape',
     },
     {
       id: 'choice-chaat-masala',
@@ -98,6 +120,8 @@ export default function HomePage({ setCursorState, onOpenContact }: HomePageProp
       category: 'Packaging',
       image: '/assets/aistudio/WhatsApp_Image_2026-10-18_at_8.44.21_PM__2__e7360007.jpeg',
       tag: 'Packaging Print Design',
+      objectFit: 'contain',
+      orientation: 'portrait',
     },
   ];
 
@@ -221,7 +245,7 @@ export default function HomePage({ setCursorState, onOpenContact }: HomePageProp
             </div>
           </div>
         }
-        supportingLogosTitle="TRUSTED BY 250+ BRANDS WORLDWIDE"
+        supportingLogosTitle="TRUSTED BY 50+ BRANDS WORLDWIDE"
         supportingLogos={trustedBrands}
         onHoverCursor={(text) => setCursorState({ variant: 'hover', text })}
         onLeaveCursor={() => setCursorState({ variant: 'default' })}
@@ -308,44 +332,62 @@ export default function HomePage({ setCursorState, onOpenContact }: HomePageProp
             ))}
           </div>
 
-          {/* 4 Projects Row (4-col on desktop) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7">
-            {filteredProjects.map((proj) => (
-              <div
-                key={proj.id}
-                onClick={() => {
-                  const found = pixelionProjects.find((p) => p.id === proj.id);
-                  if (found) setSelectedProject(found);
-                }}
-                className="bg-white border border-[#E2E6EE] hover:border-[#E31E24] rounded-2xl overflow-hidden group cursor-pointer transition-all duration-300 hover:shadow-lg flex flex-col justify-between"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden bg-[#2C3D6C]/5">
-                  <LazyImage
-                    src={proj.image}
-                    alt={proj.title}
-                    placeholderTone="light"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center text-[#E31E24] opacity-0 group-hover:opacity-100 transition-opacity">
-                    <ArrowUpRight className="w-4 h-4" />
-                  </div>
-                </div>
+          {/* Recent Projects Grid: 1 col mobile (320-767px), 2 col tablet/laptop, 4 col wide desktop */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 sm:gap-7">
+            {filteredProjects.map((proj) => {
+              const aspectClass =
+                proj.orientation === 'portrait'
+                  ? 'aspect-[4/5] md:aspect-[4/3]'
+                  : proj.orientation === 'square'
+                  ? 'aspect-square md:aspect-[4/3]'
+                  : 'aspect-[4/3]';
 
-                <div className="p-5 flex items-center justify-between border-t border-[#E2E6EE]/80">
-                  <div>
-                    <h3 className="font-display font-extrabold text-sm text-[#2C3D6C] group-hover:text-[#E31E24] transition-colors">
-                      {proj.title}
-                    </h3>
-                    <span className="font-mono text-[10px] text-[#46516A]/70 uppercase">
-                      {proj.category}
+              return (
+                <article
+                  key={proj.id}
+                  onClick={() => {
+                    const found = pixelionProjects.find((p) => p.id === proj.id);
+                    if (found) setSelectedProject(found);
+                  }}
+                  className="bg-white border border-[#E2E6EE] hover:border-[#E31E24] rounded-2xl overflow-hidden group cursor-pointer transition-all duration-300 shadow-xs hover:shadow-lg flex flex-col justify-between"
+                >
+                  <div
+                    className={`relative w-full ${aspectClass} overflow-hidden flex items-center justify-center ${
+                      proj.objectFit === 'contain' ? 'bg-[#F3F5F9] p-2.5' : 'bg-[#2C3D6C]/5'
+                    }`}
+                  >
+                    <LazyImage
+                      src={proj.image}
+                      alt={proj.title}
+                      placeholderTone="light"
+                      objectFit={proj.objectFit}
+                      className={
+                        proj.objectFit === 'contain'
+                          ? 'transition-transform duration-500 group-hover:scale-[1.03]'
+                          : 'transition-transform duration-700 group-hover:scale-105'
+                      }
+                    />
+                  </div>
+
+                  <div className="p-4 sm:p-5 flex items-center justify-between gap-2 border-t border-[#E2E6EE]/80 bg-white">
+                    <div className="min-w-0">
+                      <h3 className="font-display font-extrabold text-sm text-[#2C3D6C] group-hover:text-[#E31E24] transition-colors truncate">
+                        {proj.title}
+                      </h3>
+                      <span className="font-mono text-[10px] text-[#46516A] uppercase block truncate mt-0.5">
+                        {proj.category}
+                      </span>
+                    </div>
+                    <span
+                      aria-hidden="true"
+                      className="w-8 h-8 rounded-full border border-[#E2E6EE] bg-[#F7F9FC] text-[#2C3D6C] group-hover:bg-[#E31E24] group-hover:text-white group-hover:border-[#E31E24] flex items-center justify-center transition-colors shrink-0"
+                    >
+                      <ArrowUpRight className="w-4 h-4" />
                     </span>
                   </div>
-                  <span className="text-[#E31E24] font-bold text-xs group-hover:translate-x-0.5 transition-transform">
-                    →
-                  </span>
-                </div>
-              </div>
-            ))}
+                </article>
+              );
+            })}
           </div>
 
           {/* Centered Red Button */}
